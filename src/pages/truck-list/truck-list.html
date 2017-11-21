@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Truck List</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!-- 이미지 원형, button을 누르지 않고 화면전환 -->
+<ion-content>
+  <ion-list >
+    <button ion-item *ngFor="let truck of trucks" (click)="openItem(truck)">
+      <ion-avatar item-start>
+        <img src="http://localhost:8080/image/{{truck.timage}}">
+      </ion-avatar>
+      <h2>NO. {{truck.tid}} | {{truck.tname}}</h2>
+      <p>{{truck.taddress}}</p>
+    </button>
+  </ion-list>
+</ion-content>

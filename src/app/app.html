@@ -1,0 +1,31 @@
+<ion-menu persistent="true" [content]="content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title *ngIf="nickname">{{nickname}} 님</ion-title>
+      <ion-title *ngIf="!nickname">menu</ion-title>
+      <!-- <ion-buttons start>
+        <button ion-button icon-only color="royal">
+          <ion-icon name="construct"></ion-icon>
+        </button>
+      </ion-buttons> -->
+      <ion-buttons end>
+        <button ion-button menuClose icon-only color="royal" (click)="goToProfile()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
