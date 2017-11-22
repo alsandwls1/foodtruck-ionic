@@ -5,16 +5,12 @@ import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 
-/*
-  Generated class for the AuthenticationProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthenticationProvider {
   private loginUrl: string = "http://localhost:8080/members";
   private subject = new Subject<any>();
+
+  member: any = {};
 
   constructor(public http: Http) {
     console.log('Hello AuthenticationProvider Provider');
@@ -22,7 +18,7 @@ export class AuthenticationProvider {
 
   //로그인처리가 되었는지 비동기방식으로 처리하기 위해서
   getObservable(): Observable<any> {
-    console.log('AuthenticationProvider # getObservable() working');
+    // console.log('AuthenticationProvider # getObservable() working');
     return this.subject.asObservable();
   }
 
@@ -30,8 +26,6 @@ export class AuthenticationProvider {
     const url = `${this.loginUrl}/login`;
     let member = { "mEmail": email, "mPassword": password };
     let headers = new Headers({ 'Content-Type': 'application/json;  charset=utf-8', 'Accept': 'application/json' });
-
-    console.log('member = ' + JSON.stringify(member));
 
     return this.http.post(url, JSON.stringify(member), { headers: headers }).toPromise().then(
       res => {
@@ -51,10 +45,17 @@ export class AuthenticationProvider {
     );
   }
 
-  logout() {
+  //login한 회원이 사업자이면 등록한 트럭이 있는지 확인
+  checkTruck(email: string): Observable<any> {
+    const url = `http://localhost:8080/trucks/member/${email}`;
+    console.log('checkTruck url = '+url);
+    return this.http.get(url).map(res=>res.text());
+  }
+
+  logout(): Observable<any> {
     const url = `${this.loginUrl}/logout`;
     this.subject.next({ login: null });
-    return this.http.get(url);
+    return this.http.get(url).map(res=>res.text());
   }
 
 }

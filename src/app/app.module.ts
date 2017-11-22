@@ -28,21 +28,22 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 //Page Module
 import { CanivalPageModule } from '../pages/canival/canival.module';
-import { FavoritesPageModule } from '../pages/favorites/favorites.module';
 import { JoinPageModule } from '../pages/join/join.module';
 import { LoginPageModule } from '../pages/login/login.module';
-import { ReviewsPageModule } from '../pages/reviews/reviews.module';
 import { SupportPageModule } from '../pages/support/support.module';
 import { TruckInfoPageModule } from '../pages/truck-info/truck-info.module';
 import { TruckListPageModule } from '../pages/truck-list/truck-list.module';
 import { TruckMapPageModule } from '../pages/truck-map/truck-map.module';
-import { ProfilePageModule } from '../pages/profile/profile.module';
+import { MemberInfoPageModule } from '../pages/member-info/member-info.module';
+import { TruckRegistPageModule } from '../pages/truck-regist/truck-regist.module';
+import { CanivalInfoPageModule } from '../pages/canival-info/canival-info.module';
 
 //providers
 import { TruckProvider } from '../providers/truck/truck';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { LocalstorageProvider } from '../providers/localstorage/localstorage';
 import { MemberProvider } from '../providers/member/member';
+import { CanivalProvider } from '../providers/canival/canival';
 
 @NgModule({
   declarations: [
@@ -70,10 +71,10 @@ import { MemberProvider } from '../providers/member/member';
     // }),
     HttpModule,
     //Page Module
-    CanivalPageModule,FavoritesPageModule,JoinPageModule,
-    LoginPageModule,ReviewsPageModule,SupportPageModule,
+    CanivalPageModule,JoinPageModule,
+    LoginPageModule,SupportPageModule,
     TruckInfoPageModule,TruckListPageModule,TruckMapPageModule,
-    ProfilePageModule,
+    MemberInfoPageModule,TruckRegistPageModule,CanivalInfoPageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -97,6 +98,7 @@ import { MemberProvider } from '../providers/member/member';
     AuthenticationProvider,
     LocalstorageProvider,
     MemberProvider,
+    CanivalProvider,
     // TruckProvider,
   ]
 })

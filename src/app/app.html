@@ -1,16 +1,14 @@
 <ion-menu persistent="true" [content]="content">
   <ion-header>
     <ion-toolbar color="primary">
-      <ion-title *ngIf="nickname">{{nickname}} 님</ion-title>
-      <ion-title *ngIf="!nickname">menu</ion-title>
-      <!-- <ion-buttons start>
-        <button ion-button icon-only color="royal">
-          <ion-icon name="construct"></ion-icon>
-        </button>
-      </ion-buttons> -->
+      <ion-title *ngIf="member">{{nickname}} 님</ion-title>
+      <!-- <ion-title  *ngIf="!member" menuClose icon-only (click)="openPage2(nickname)">login</ion-title> -->
+      <ion-buttons class="btnLogin" *ngIf="!member">
+        <button ion-button menuClose icon-only (click)="openPage2(member)">login</button>
+      </ion-buttons>
       <ion-buttons end>
-        <button ion-button menuClose icon-only color="royal" (click)="goToProfile()">
-          <ion-icon name="settings"></ion-icon>
+        <button *ngIf="member" ion-button menuClose icon-only color="royal" (click)="goToMemberInfo()">
+          <ion-icon name="person"></ion-icon>
         </button>
       </ion-buttons>
     </ion-toolbar>
@@ -19,8 +17,21 @@
 
   <ion-content>
     <ion-list>
+      <button *ngIf="registype === 2 && check === 0" menuClose ion-item (click)="goToTruckRegist()">
+        푸드트럭등록
+      </button>
+      <button *ngIf="registype === 2 && check === 1" menuClose ion-item (click)="goToTruckInfo()">
+        나의트럭가기
+      </button>
+    </ion-list>
+    <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
+      </button>
+    </ion-list>
+    <ion-list *ngIf="member">
+      <button menuClose ion-item (click)="openPage2(member)">
+        로그아웃
       </button>
     </ion-list>
   </ion-content>

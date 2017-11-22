@@ -9,15 +9,15 @@ import { TruckMapPage } from '../pages/truck-map/truck-map';
 import { TruckListPage } from '../pages/truck-list/truck-list';
 import { TruckInfoPage } from '../pages/truck-info/truck-info';
 import { CanivalPage } from '../pages/canival/canival';
-import { ReviewsPage } from '../pages/reviews/reviews';
 import { SupportPage } from '../pages/support/support';
-import { FavoritesPage } from '../pages/favorites/favorites';
 import { LoginPage } from '../pages/login/login';
 import { JoinPage } from '../pages/join/join';
-import { ProfilePage } from '../pages/profile/profile';
+import { MemberInfoPage } from '../pages/member-info/member-info';
+import { TruckRegistPage } from '../pages/truck-regist/truck-regist';
 
 //providers
 import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { TruckProvider } from '../providers/truck/truck';
 
 
 @Component({
@@ -32,107 +32,121 @@ export class MyApp {
 
   member: any;
   nickname: string;
-
+  registype: number;
+  check: number;
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public authService: AuthenticationProvider
+    public authService: AuthenticationProvider,
+    public truckProvider: TruckProvider,
   ) {
     this.initializeApp();
 
-    this.member = JSON.parse(window.localStorage.getItem('member'));
-
-    // used for an example of ngFor and navigation
-    //새로고침할 때, localStorage에 있는 정보를 참조해서 side bar의 목록 처리.
-    if(this.member !== null) {
-      //로그인함
+    //새로고침을 할 때, 스토리지 확인해서 로그인 상태인지 확인
+    if (window.localStorage.getItem('member')) {
+      this.member = JSON.parse(window.localStorage.getItem('member'));
       this.nickname = this.member.mnickname;
-      this.pages = [
-        { title: '푸드트럭홈', component: HomePage },
-        { title: '트럭지도', component: TruckMapPage },
-        { title: '트럭목록', component: TruckListPage },
-        { title: '즐겨찾기', component: FavoritesPage },
-        { title: '나의리뷰', component: ReviewsPage },
-        { title: '축제정보', component: CanivalPage },
-        { title: '고객센터', component: SupportPage },
-        { title: '로그아웃', component: null },
-      ];
-    } else {
-      //로그인 안함
-      this.pages = [
-        { title: '로그인', component: LoginPage },
-        { title: '푸드트럭홈', component: HomePage },
-        { title: '트럭 지도', component: TruckMapPage },
-        { title: '트럭 목록', component: TruckListPage },
-        { title: '축제 정보', component: CanivalPage },
-        { title: '고객 센터', component: SupportPage },
-      ];
+      this.registype = this.member.mregistype;
+      console.log(this.registype);
+      if(this.registype === 2) {
+        console.log('2222');
+        this.checkTruck(this.member.memail);
+      }
     }
+
+    // 기본으로 보여주는 페이지
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: '푸드트럭홈', component: HomePage },
+      { title: '트럭 지도', component: TruckMapPage },
+      { title: '트럭 목록', component: TruckListPage },
+      { title: '축제 정보', component: CanivalPage },
+      { title: '고객 센터', component: SupportPage },
+    ];
 
     // 로그인을 했을 때, 비동기방법으로 처리.
     // console.log('app.component start')
     this.authService.getObservable().subscribe(
       result => {
-        console.log('result.login = '+result.login)
-        if(result.login) {
+        if (result.login) {
           //로그인 함
           this.member = JSON.parse(window.localStorage.getItem('member'));
           this.nickname = this.member.mnickname;
-          this.pages = [
-            { title: '푸드트럭홈', component: HomePage },
-            { title: '트럭지도', component: TruckMapPage },
-            { title: '트럭목록', component: TruckListPage },
-            { title: '즐겨찾기', component: FavoritesPage },
-            { title: '나의리뷰', component: ReviewsPage },
-            { title: '축제정보', component: CanivalPage },
-            { title: '고객센터', component: SupportPage },
-            { title: '로그아웃', component: null },
-          ];
+          this.registype = this.member.mregistype;
+          console.log('this.registype = '+this.registype);
+          if(this.registype === 2) {
+            console.log('2222');
+            this.checkTruck(this.member.memail);
+          }
+          this.nav.setRoot(HomePage);
         } else {
+          //로그아웃 함
           this.member = null;
           this.nickname = null;
-          window.localStorage.removeItem('email');
-          this.pages = [
-            { title: '로그인', component: LoginPage },
-            { title: '푸드트럭홈', component: HomePage },
-            { title: '트럭 지도', component: TruckMapPage },
-            { title: '트럭 목록', component: TruckListPage },
-            { title: '축제 정보', component: CanivalPage },
-            { title: '고객 센터', component: SupportPage },
-          ];
+          this.registype = null;
+          window.localStorage.removeItem('member');
         }
       }
     );
+
+    //사업자가 트럭 등록을 하면 나의 트럭가기 버튼으로 변경할 수 있게 제어
+    this.truckProvider.getObservable().subscribe(res => {
+      if (res.check == 'true') {
+        this.checkTruck(this.member.memail);
+      }
+    });
+
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    // this.nav.setRoot(page.component);
-    if(page.component) {
-      this.nav.setRoot(page.component);
-    } else {
-      //로그아웃을 누르면 component가 없으므로 else로 빠짐.
-      window.localStorage.removeItem('member');
-      this.authService.logout();
-      this.nav.setRoot(LoginPage);
-      // this.nav.popToRoot(); //어떤 역할인지 파악안됨
-    }
-
+    this.nav.setRoot(page.component);
   }
 
-  goToProfile() {
-    this.nav.setRoot(ProfilePage);
+  openPage2(member) {
+    if (member) {
+      //logout
+      this.authService.logout().subscribe();
+      this.nav.setRoot(LoginPage);
+    } else {
+      //login
+      this.nav.setRoot(LoginPage);
+    }
+  }
+
+  //사업자회원이면 트럭등록을 했는지 확인
+  checkTruck(email: string) {
+    this.authService.checkTruck(email).subscribe(res=>{
+      console.log('appcomponent checkTruck = '+res);
+      if(res === '0') {
+        //트럭등록 안함
+        this.check = 0;
+      } else {
+        //트럭등록 함
+        this.check = 1;
+      }
+    });
+  }
+
+  //마이페이지와 비슷 - 나의리뷰,즐겨찾기,프로필수정 이용
+  goToMemberInfo() {
+    this.nav.setRoot(MemberInfoPage);
+  }
+
+  goToTruckRegist() {
+    this.nav.setRoot(TruckRegistPage);
+  }
+
+  goToTruckInfo() {
+    //TODO:나의 트럭가기 보충해줘야함
+    this.nav.setRoot(TruckInfoPage);
   }
 }

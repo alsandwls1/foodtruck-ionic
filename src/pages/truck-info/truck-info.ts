@@ -16,9 +16,7 @@ import { TruckProvider } from '../../providers/truck/truck';
   templateUrl: 'truck-info.html',
 })
 export class TruckInfoPage {
-  tid: string;
   truck: any;
-  image: any;
 
   constructor(
     public navCtrl: NavController,

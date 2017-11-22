@@ -7,15 +7,37 @@
   </ion-navbar>
 </ion-header>
 
-<!-- 이미지 원형, button을 누르지 않고 화면전환 -->
-<ion-content>
-  <ion-list >
-    <button ion-item *ngFor="let truck of trucks" (click)="openItem(truck)">
-      <ion-avatar item-start>
-        <img src="http://localhost:8080/image/{{truck.timage}}">
-      </ion-avatar>
-      <h2>NO. {{truck.tid}} | {{truck.tname}}</h2>
-      <p>{{truck.taddress}}</p>
-    </button>
-  </ion-list>
+<ion-content class="cards-bg">
+  <ion-card *ngFor="let truck of trucks">
+    <img src="http://localhost:8080/image/{{truck.timage}}" />
+    <ion-card-content>
+      <ion-card-title>
+        NO. {{truck.tid}} | {{truck.tname}}
+      </ion-card-title>
+      <p>
+        {{truck.taddress}}
+      </p>
+    </ion-card-content>
+
+    <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='star'></ion-icon>
+          Favorite
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger" (click)="onGoToinfo(truck)" icon-start>
+          <ion-icon name='log-in'></ion-icon>
+          Enter
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='logo-facebook'></ion-icon>
+          fb-like
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

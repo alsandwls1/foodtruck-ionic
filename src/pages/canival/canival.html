@@ -18,4 +18,16 @@
 
 <ion-content padding>
 
+  <ion-list>
+    <ion-item-sliding *ngFor="let c of canivals">
+      <ion-item (click)="click(c)">
+        <ion-avatar item-start>
+          <img src="http://localhost:8080/image/{{c.cimage}}">
+        </ion-avatar>
+        <h2>{{c.ctitle}}</h2>
+        <p>시작일 : {{c.csdate}}</p>
+        <p>종료일 : {{c.cedate}}</p>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

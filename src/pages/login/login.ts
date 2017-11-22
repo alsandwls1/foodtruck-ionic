@@ -35,7 +35,7 @@ export class LoginPage {
 
   //회원가입 페이지로 이동
   goToJoin() {
-    this.navCtrl.push('JoinPage')
+    this.navCtrl.push('JoinPage');
   }
 
   //form에서 받은 email, password를 loginForm으로 받음

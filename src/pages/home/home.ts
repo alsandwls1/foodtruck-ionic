@@ -5,13 +5,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
-// import { TruckMapPage } from '../truck-map/truck-map';
-// import { TruckListPage } from '../truck-list/truck-list';
-// import { CanivalPage } from '../canival/canival';
-// import { ReviewsPage } from '../reviews/reviews';
-// import { SupportPage } from '../support/support';
-// import { FavoritesPage } from '../favorites/favorites';
-// import { LoginPage } from '../login/login';
+import { TruckMapPage } from '../truck-map/truck-map';
+import { TruckListPage } from '../truck-list/truck-list';
+import { CanivalPage } from '../canival/canival';
+import { SupportPage } from '../support/support';
+import { LoginPage } from '../login/login';
+import { ReviewsPage } from '../member-info/reviews/reviews';
+import { FavoritesPage } from '../member-info/favorites/favorites';
 
 // @IonicPage()
 @Component({
@@ -20,32 +20,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomePage {
 
-  session:boolean = true;
+  session: boolean = true;
 
-  constructor(public navCtrl: NavController) {}
+  obj = [
+    { "TruckMapPage": TruckMapPage },
+    { "TruckListPage": TruckListPage },
+    { "CanivalPage": CanivalPage },
+    { "SupportPage": SupportPage },
+    { "ReviewsPage" :  ReviewsPage },
+    { "FavoritesPage" :  FavoritesPage },
+  ]
 
-  goToTruckList() {
-    this.navCtrl.push('TruckListPage');
-  }
 
-  goToTruckMap() {
-    this.navCtrl.push('TruckMapPage');
-  }
+  constructor(public navCtrl: NavController) { }
 
-  goToCanival() {
-    this.navCtrl.push('CanivalPage');
-  }
-
-  goToSupport() {
-    this.navCtrl.push('SupportPage');
-  }
-
-  goToFavorites() {
-    this.navCtrl.push('FavoritesPage');
-  }
-
-  goToReviews() {
-    this.navCtrl.push('ReviewsPage');
+  goToPages(page: string) {
+    for (let i = 0; i < this.obj.length; i++) {
+      if (Object.keys(this.obj[i])[0] === page) {
+        console.log(Object.keys(this.obj[i])[0]);
+        this.navCtrl.push(this.obj[i][page]);
+      }
+    }
   }
 
 }

@@ -27,7 +27,7 @@ export class TruckListPage {
     });
   }
 
-  openItem(truck: string) {
+  onGoToinfo(truck) {
     this.navCtrl.push('TruckInfoPage', {
       truck: truck
     });
