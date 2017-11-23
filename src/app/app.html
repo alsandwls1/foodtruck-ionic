@@ -1,14 +1,27 @@
 <ion-menu persistent="true" [content]="content">
   <ion-header>
     <ion-toolbar color="primary">
-      <ion-title *ngIf="member">{{nickname}} 님</ion-title>
-      <!-- <ion-title  *ngIf="!member" menuClose icon-only (click)="openPage2(nickname)">login</ion-title> -->
-      <ion-buttons class="btnLogin" *ngIf="!member">
-        <button ion-button menuClose icon-only (click)="openPage2(member)">login</button>
+      <!-- <ion-title *ngIf="member">{{nickname}} 님</ion-title>
+      <ion-buttons class="btnLogin" *ngIf="!member" start>
+        <button ion-button menuClose icon-only (click)="goToLogin()">login</button>
       </ion-buttons>
       <ion-buttons end>
         <button *ngIf="member" ion-button menuClose icon-only color="royal" (click)="goToMemberInfo()">
-          <ion-icon name="person"></ion-icon>
+          <ion-icon name="person"></ion-icon>마이페이지
+        </button>
+      </ion-buttons> -->
+      <ion-title *ngIf="member">{{nickname}} 님</ion-title>
+      <ion-buttons *ngIf="!member" left>
+        <button  class="btn" ion-button icon-only menuClose (click)="goToLogin()">
+          &nbsp;&nbsp;&nbsp;&nbsp;Login &nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+        <button class="btn" ion-button icon-only menuClose (click)="goToJoin()">
+          Join&nbsp;&nbsp;&nbsp;&nbsp;
+        </button>
+      </ion-buttons>
+      <ion-buttons right>
+        <button *ngIf="member" ion-button menuClose icon-only color="royal" (click)="goToMemberInfo()">
+          <ion-icon name="person"></ion-icon>마이페이지
         </button>
       </ion-buttons>
     </ion-toolbar>
@@ -30,7 +43,7 @@
       </button>
     </ion-list>
     <ion-list *ngIf="member">
-      <button menuClose ion-item (click)="openPage2(member)">
+      <button menuClose ion-item (click)="goToLogout()">
         로그아웃
       </button>
     </ion-list>

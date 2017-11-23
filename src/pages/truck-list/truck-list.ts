@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { TruckInfoPage } from '../../pages/truck-info/truck-info';
+
 import { TruckProvider } from '../../providers/truck/truck';
 
 @IonicPage()
@@ -20,6 +22,7 @@ export class TruckListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TruckListPage');
+    //등록된 모든 truck정보 불러오기
     this.truckService.getTrucks().subscribe(trucks => {
       let json = trucks.text();
       json = JSON.parse(json);
@@ -28,7 +31,7 @@ export class TruckListPage {
   }
 
   onGoToinfo(truck) {
-    this.navCtrl.push('TruckInfoPage', {
+    this.navCtrl.push(TruckInfoPage, {
       truck: truck
     });
   }

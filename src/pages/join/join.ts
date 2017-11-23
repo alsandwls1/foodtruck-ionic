@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 //Toast를 위해 추가
 import { ToastController } from 'ionic-angular';
 
@@ -49,7 +50,7 @@ export class JoinPage {
         if (member.merror !== null) {
           this.presentToast(member.merror);
         } else {
-          this.navCtrl.push('LoginPage');
+          this.navCtrl.pop();
         }
       });
 

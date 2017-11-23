@@ -6,18 +6,50 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button start ion-button menuToggle icon-only>
+    <button start ion-button menuToggle >
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>member-info</ion-title>
   </ion-navbar>
+
+  <!-- <ion-toolbar>
+   <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+     <ion-segment-button value="review">
+       review
+     </ion-segment-button>
+     <ion-segment-button value="favorite">
+       favorite
+     </ion-segment-button>
+     <ion-segment-button value="profile">
+       profile
+     </ion-segment-button>
+   </ion-segment>
+ </ion-toolbar> -->
 </ion-header>
 
-
 <ion-content padding>
-  <ion-tabs class="tabs-icon-text" color="primary">
-    <ion-tab tabIcon="water" tabTitle="review" [root]="tab1"></ion-tab>
+  <ion-tabs class="tabs-icon-text" color="" selectedIndex="0" tabsPlacement="top">
+    <ion-tab tabIcon="text" tabTitle="review" [root]="tab1"></ion-tab>
     <ion-tab tabIcon="heart" tabTitle="favorite" [root]="tab2"></ion-tab>
     <ion-tab tabIcon="settings" tabTitle="profile" [root]="tab3"></ion-tab>
   </ion-tabs>
 </ion-content>
+
+<!-- <ion-content padding>
+  <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #loopSlider>
+    <ion-slide *ngFor="let slide of slides">
+      {{slide.component}}
+    </ion-slide>
+  </ion-slides>
+</ion-content> -->
+
+<!-- <ion-content>
+  <ion-slides (ionSlideDidChange)="onSlideChanged($event)" #loopSlider zoom>
+    <ion-slide *ngFor="let slide of slides" >
+      <page-reviews  *ngIf="slide.id === 'review'"></page-reviews>
+      <page-favorites *ngIf="slide.id === 'favorite'"></page-favorites>
+      <page-profile *ngIf="slide.id === 'profile'"></page-profile>
+      <ion-nav [root]="root"></ion-nav>
+    </ion-slide>
+  </ion-slides>
+</ion-content> -->

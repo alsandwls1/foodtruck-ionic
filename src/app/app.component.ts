@@ -49,9 +49,9 @@ export class MyApp {
       this.member = JSON.parse(window.localStorage.getItem('member'));
       this.nickname = this.member.mnickname;
       this.registype = this.member.mregistype;
-      console.log(this.registype);
+      // console.log(this.registype);
       if(this.registype === 2) {
-        console.log('2222');
+        // console.log('2222');
         this.checkTruck(this.member.memail);
       }
     }
@@ -107,21 +107,6 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
-    this.nav.setRoot(page.component);
-  }
-
-  openPage2(member) {
-    if (member) {
-      //logout
-      this.authService.logout().subscribe();
-      this.nav.setRoot(LoginPage);
-    } else {
-      //login
-      this.nav.setRoot(LoginPage);
-    }
-  }
-
   //사업자회원이면 트럭등록을 했는지 확인
   checkTruck(email: string) {
     this.authService.checkTruck(email).subscribe(res=>{
@@ -134,6 +119,24 @@ export class MyApp {
         this.check = 1;
       }
     });
+  }
+
+  //기본 페이지
+  openPage(page) {
+    this.nav.setRoot(page.component);
+  }
+
+  goToLogin() {
+    this.nav.setRoot(LoginPage);
+  }
+
+  goToJoin() {
+    this.nav.setRoot(JoinPage);
+  }
+
+  goToLogout() {
+    this.authService.logout().subscribe(res=>console.log(res));
+    this.nav.setRoot(LoginPage);
   }
 
   //마이페이지와 비슷 - 나의리뷰,즐겨찾기,프로필수정 이용

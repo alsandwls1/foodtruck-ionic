@@ -14,7 +14,7 @@ export class TruckProvider {
   }
 
   getObservable(): Observable<any> {
-    console.log('getObservable() working');
+    // console.log('getObservable() working');
     return this.subject.asObservable();
   }
 

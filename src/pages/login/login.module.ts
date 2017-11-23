@@ -12,8 +12,5 @@ import { AuthenticationProvider } from '../../providers/authentication/authentic
   imports: [
     IonicPageModule.forChild(LoginPage),
   ],
-  providers: [
-    AuthenticationProvider,
-  ],
 })
 export class LoginPageModule {}

@@ -11,8 +11,5 @@ import { TruckProvider } from '../../providers/truck/truck';
   imports: [
     IonicPageModule.forChild(TruckListPage),
   ],
-  providers: [
-   TruckProvider,
-  ],
 })
 export class TruckListPageModule {}

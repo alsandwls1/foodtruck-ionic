@@ -48,7 +48,7 @@ export class AuthenticationProvider {
   //login한 회원이 사업자이면 등록한 트럭이 있는지 확인
   checkTruck(email: string): Observable<any> {
     const url = `http://localhost:8080/trucks/member/${email}`;
-    console.log('checkTruck url = '+url);
+    // console.log('checkTruck url = '+url);
     return this.http.get(url).map(res=>res.text());
   }
 
