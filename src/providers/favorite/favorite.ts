@@ -25,10 +25,10 @@ export class FavoriteProvider {
     }
   }
 
-  getObservable(): Observable<any> {
-    console.log('FavoriteProvider # getObservable() called!!')
-    return this.subject.asObservable();
-  }
+  // getObservable(): Observable<any> {
+  //   console.log('FavoriteProvider # getObservable() called!!')
+  //   return this.subject.asObservable();
+  // }
 
   getFavorites(email: string): Observable<any> {
     let url = `${this.favoriteUrl}/${email}`;

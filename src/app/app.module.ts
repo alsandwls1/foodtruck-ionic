@@ -9,10 +9,12 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { TruckListPage } from '../pages/truck-list/truck-list';
 import { TruckInfoPage } from '../pages/truck-info/truck-info';
+import { TruckRegistPage } from '../pages/truck-regist/truck-regist';
 import { CanivalPage } from '../pages/canival/canival';
 import { SupportPage } from '../pages/support/support';
 import { LoginPage } from '../pages/login/login';
 import { JoinPage } from '../pages/join/join';
+import { FoodRegistPage } from '../pages/food-regist/food-regist';
 // import { TruckMapPage } from '../pages/truck-map/truck-map';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -41,6 +43,7 @@ import { MemberProvider } from '../providers/member/member';
 import { CanivalProvider } from '../providers/canival/canival';
 import { ReviewProvider } from '../providers/review/review';
 import { FavoriteProvider } from '../providers/favorite/favorite';
+import { FoodProvider } from '../providers/food/food';
 
 @NgModule({
   declarations: [
@@ -49,10 +52,12 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     ListPage,
     TruckListPage,
     TruckInfoPage,
+    TruckRegistPage,
     CanivalPage,
     SupportPage,
     LoginPage,
     JoinPage,
+    FoodRegistPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -78,10 +83,12 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     ListPage,
     TruckListPage,
     TruckInfoPage,
+    TruckRegistPage,
     CanivalPage,
     SupportPage,
     LoginPage,
     JoinPage,
+    FoodRegistPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -89,7 +96,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthenticationProvider,
     LocalstorageProvider,
     MemberProvider,
@@ -97,6 +104,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     TruckProvider,
     ReviewProvider,
     FavoriteProvider,
+    FoodProvider,
   ]
 })
-export class AppModule {}
+export class AppModule { }

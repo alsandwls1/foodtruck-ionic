@@ -21,11 +21,8 @@ import { SegmentButton, Slides } from 'ionic-angular';
 export class MemberInfoPage {
 
   // @ViewChild('loopSlider') sliderComponent: Slides;
-  //
   // slides: Array<{ id: string, component: any }>;
-  //
   // selectedSegment = 'review';
-  //
   // constructor(public navCtrl: NavController, public navParams: NavParams) {
   //   this.slides = [
   //     { id: 'review', component: ReviewsPage },

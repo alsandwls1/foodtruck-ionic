@@ -7,9 +7,12 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle >
+    <button ion-button menuToggle *ngIf="!modal">
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons start *ngIf="modal">
+      <button ion-button (click)="dismiss()">뒤로가기</button>
+    </ion-buttons>
     <ion-title>truck-info</ion-title>
   </ion-navbar>
 
@@ -18,19 +21,64 @@
 
 <ion-content padding>
   <ion-card>
-      <img src="http://localhost:8080/image/{{truck.timage}}" />
-      <ion-card-content>
+    <img src="http://localhost:8080/image/{{truck.timage}}" />
+    <ion-card-content>
       <ion-card-title>
-      NO. {{truck.tid}} | {{truck.tname}}
-    </ion-card-title>
-    <p>
-    {{truck.taddress}}
-  </p>
-  <p>
-    open : {{truck.topen}} <br>
-    close : {{truck.tclose}}
-  </p>
-  <p> 평점 : {{truck.tavg}}</p>
-  </ion-card-content>
+        NO. {{truck.tid}} | {{truck.tname}}
+      </ion-card-title>
+      <p>
+        {{truck.taddress}}
+      </p>
+      <p>
+        open : {{truck.topen}} <br> close : {{truck.tclose}}
+      </p>
+      <p> 평점 : {{truck.tavg}}</p>
+    </ion-card-content>
+    <button type="button" (click)="presentProfileModal()" name="button">모달띠우기</button>
   </ion-card>
+
+  <div padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="menus">
+        menus
+      </ion-segment-button>
+      <ion-segment-button value="reviews">
+        reviews
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="pet">
+    <ion-list *ngSwitchCase="'menus'">
+      <ion-item *ngFor="let f of foods">
+        <ion-thumbnail item-start>
+          <img src="http://localhost:8080/image/{{f.fimage}}">
+        </ion-thumbnail>
+        <h2>이름 : {{f.fname}}</h2>
+        <h2>가격 : {{f.fprice}}</h2>
+      </ion-item>
+      <ion-card *ngIf="foodError">
+        <ion-card-content>
+          {{foodError}}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'reviews'">
+      <ion-item *ngFor="let r of reviews">
+        <ion-thumbnail item-start *ngIf="r.rimage">
+          <img src="http://localhost:8080/image/{{r.rimage}}">
+        </ion-thumbnail>
+        <h3>작성자: {{r.rmember}}</h3>
+        <h3>작성일 : {{ r.rdate}}</h3>
+        <h3>내용 : {{r.rcomment}} </h3>
+        <h3>{{r.rscore}}</h3>
+      </ion-item>
+      <ion-card *ngIf="reviewError">
+        <ion-card-content>
+          {{reviewError}}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 </ion-content>

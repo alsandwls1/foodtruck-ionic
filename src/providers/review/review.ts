@@ -13,8 +13,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class ReviewProvider {
   private reviewUrl: string = "http://localhost:8080/reviews";
-  private headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
-
+  // private headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8' });
 
   private subject = new Subject<any>();
 
@@ -30,7 +29,13 @@ export class ReviewProvider {
   //내가 남긴 리뷰목록
   getMemberReview(email: string): Observable<any> {
     var url = `${this.reviewUrl}/member/${email}`;
-    return this.http.get(url).map(res=> res.text());
+    return this.http.get(url).map(res => res.text());
+  }
+
+  //트럭 리뷰목록
+  getTruckReview(tid: string) {
+    const url = this.reviewUrl + `/truck/${tid}`;
+    return this.http.get(url);
   }
 
 }

@@ -42,9 +42,8 @@ export class LoginPage {
   login(loginForm) {
     this.authService.login(this.model.email, this.model.password)
       .then(result => {
-        // console.log('login log = '+ result)
         let member = JSON.parse(result);
-        console.log('login # member memail = ' + member.memail)
+        // console.log('login # member memail = ' + member.memail)
         if (member.merror === null) {
           //에러메세지가 없으면  HomePage로 이동
           this.navCtrl.push(HomePage);

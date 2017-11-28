@@ -18,6 +18,8 @@ export class ReviewsPage {
   private reviews: Array<any>;
   private member: any;
 
+  private error: any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,9 +38,14 @@ export class ReviewsPage {
   getMemberReview(email: string) {
     this.reviewProvider.getMemberReview(email)
       .subscribe(result => {
-        console.log('review result = ' + result);
+        // console.log('review result = ' + result);
         let json = JSON.parse(result);
-        this.reviews = json;
+        // console.log('review result = ' + json[0].rerror);
+        if(json[0].rerror) {
+          this.error = json[0].rerror;
+        } else {
+          this.reviews = json;
+        }
       });
   }
 }

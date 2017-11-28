@@ -5,16 +5,19 @@
   Ionic pages and navigation.
 -->
 
-<ion-content class="cards-bg">
-  <ion-toolbar text-center>
-    <ion-title>My Reviews</ion-title>
-  </ion-toolbar>
+<ion-header>
+  <ion-navbar>
+    <button start ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>My Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
   <ion-card *ngFor="let review of reviews">
     <img src="http://localhost:8080/image/{{review.rimage}}" />
     <ion-card-content>
-      <!-- <ion-card-title>
-        NO. {{review.rid}} | {{review.rdate}}
-      </ion-card-title> -->
       <p>
         {{review.rscore}} 점 | {{review.rdate}}
       </p>
@@ -32,4 +35,11 @@
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-card *ngIf="error">
+    <ion-card-content>
+      {{error}}
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>

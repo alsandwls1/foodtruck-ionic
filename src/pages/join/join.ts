@@ -28,7 +28,7 @@ export class JoinPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public memberService: MemberProvider,
+    public memberProvider: MemberProvider,
     private toastCtrl: ToastController,
     // public formBuilder: FormBuilder,
   ) {
@@ -44,7 +44,7 @@ export class JoinPage {
   }
 
   join(joinForm) {
-    this.memberService.join(this.model.email, this.model.password, this.model.nickname, this.model.registype)
+    this.memberProvider.join(this.model.email, this.model.password, this.model.nickname, this.model.registype)
       .subscribe(res => {
         let member = JSON.parse(res);
         if (member.merror !== null) {
