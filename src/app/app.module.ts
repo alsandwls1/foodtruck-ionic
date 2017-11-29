@@ -44,6 +44,7 @@ import { CanivalProvider } from '../providers/canival/canival';
 import { ReviewProvider } from '../providers/review/review';
 import { FavoriteProvider } from '../providers/favorite/favorite';
 import { FoodProvider } from '../providers/food/food';
+import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { FoodProvider } from '../providers/food/food';
     ReviewProvider,
     FavoriteProvider,
     FoodProvider,
+    ToastProvider,
   ]
 })
 export class AppModule { }

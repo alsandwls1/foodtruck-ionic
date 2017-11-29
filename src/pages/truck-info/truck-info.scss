@@ -1,3 +1,24 @@
-page-truck-info {
+page-truck-info {}
 
+.iconHeart {
+  font-size: 2.2em;
+  color: red;
+  margin-right: 10px;
+}
+
+.bottomToast {
+  div{
+    border-radius: 15px;
+  }
+  right: 0;
+  left: 0;
+  display: block;
+  margin: auto;
+  width: 50%;
+  max-width: 700px;
+  text-align: center;
+  font-size: 1.5em;
+}
+ion-toast {
+  bottom: 30px;
 }

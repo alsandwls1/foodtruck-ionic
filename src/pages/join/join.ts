@@ -1,19 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 //Toast를 위해 추가
-import { ToastController } from 'ionic-angular';
+import { ToastProvider } from '../../providers/toast/toast';
 
 import { MemberProvider } from '../../providers/member/member';
-
-
-/**
- * Generated class for the JoinPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -28,15 +19,10 @@ export class JoinPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public viewCtrl: ViewController,
     public memberProvider: MemberProvider,
-    private toastCtrl: ToastController,
-    // public formBuilder: FormBuilder,
+    private toastProvider: ToastProvider,
   ) {
-    // this.joinForm = formBuilder.group({
-    //   email: ['', Validators.compose([Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'), Validators.minLength(8), Validators.maxLength(30)])],
-    //   password: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
-    //   nickname: ['', Validators.compose([Validators.required, Validators.minLength(2)])]
-    // });
   }
 
   ionViewDidLoad() {
@@ -48,9 +34,10 @@ export class JoinPage {
       .subscribe(res => {
         let member = JSON.parse(res);
         if (member.merror !== null) {
-          this.presentToast(member.merror);
+          this.toastProvider.presentToast(member.merror, 'top', null);
         } else {
-          this.navCtrl.pop();
+          console.log('join success!')
+          this.dismiss();
         }
       });
 
@@ -60,17 +47,9 @@ export class JoinPage {
     this.navCtrl.push('LoginPage');
   }
 
-  //Toast
-  presentToast(message: string) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-    toast.present();
+  //모달 창 닫기
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }

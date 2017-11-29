@@ -10,28 +10,36 @@
     <button ion-button menuToggle *ngIf="!modal">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-buttons start *ngIf="modal">
-      <button ion-button (click)="dismiss()">뒤로가기</button>
+    <ion-title small>{{truck.tname}},{{truck.tid}}</ion-title>
+
+    <!-- 나의 즐겨찾기로 들오올때만 보여줌. -->
+    <ion-buttons left *ngIf="modal">
+      <button ion-button (click)="dismiss()">
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
     </ion-buttons>
-    <ion-title>truck-info</ion-title>
+    <ion-buttons start>
+      <button ion-button *ngIf="check" (click)="deleteFavorite(truck.tid)" clear small>
+        <ion-icon class="iconHeart" name='heart'></ion-icon>
+      </button>
+      <button ion-button *ngIf="!check" (click)="addFavorite(truck.tid)" clear small>
+        <ion-icon class="iconHeart" name='heart-outline'></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="cards-bg">
   <ion-card>
     <img src="http://localhost:8080/image/{{truck.timage}}" />
     <ion-card-content>
-      <ion-card-title>
+      <!-- <ion-card-title>
         NO. {{truck.tid}} | {{truck.tname}}
-      </ion-card-title>
-      <p>
-        {{truck.taddress}}
-      </p>
-      <p>
-        open : {{truck.topen}} <br> close : {{truck.tclose}}
-      </p>
+      </ion-card-title> -->
+      <p> 주소 : {{truck.taddress}}</p>
+      <p> 영업시간 : {{truck.topen}} ~ {{truck.tclose}} </p>
       <p> 평점 : {{truck.tavg}}</p>
     </ion-card-content>
     <button type="button" (click)="presentProfileModal()" name="button">모달띠우기</button>

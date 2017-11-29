@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//Toast를 위해 추가
-import { ToastController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+//providers
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
+import { ToastProvider } from '../../providers/toast/toast';
+//pages
 import { HomePage } from '../home/home';
+import { JoinPage } from '../join/join';
 
 /**
  * Generated class for the LoginPage page.
@@ -25,17 +26,20 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private toastCtrl: ToastController,
+    private toastProvider: ToastProvider,
     public authService: AuthenticationProvider,
+    public modalCtrl: ModalController,
   ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  //회원가입 페이지로 이동
+  //회원가입 페이지를 모달로 띄우기.
   goToJoin() {
-    this.navCtrl.push('JoinPage');
+    // this.navCtrl.push('JoinPage');
+    let joinModal = this.modalCtrl.create(JoinPage);
+    joinModal.present();
   }
 
   //form에서 받은 email, password를 loginForm으로 받음
@@ -48,23 +52,8 @@ export class LoginPage {
           //에러메세지가 없으면  HomePage로 이동
           this.navCtrl.push(HomePage);
         } else {
-          this.presentToast(member.merror);
+          this.toastProvider.presentToast(member.merror, 'top', null);
         }
       });
-  }
-
-  //Toast
-  presentToast(message: string) {
-    let toast = this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      position: 'top'
-    });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
-    toast.present();
   }
 }
