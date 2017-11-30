@@ -24,7 +24,6 @@ export class ToastProvider {
     });
 
     toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
     });
 
     toast.present();

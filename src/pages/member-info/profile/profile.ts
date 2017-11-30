@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { MemberProvider } from '../../../providers/member/member';
+import { ToastProvider } from '../../../providers/toast/toast';
 
 
 /**
@@ -23,6 +24,7 @@ export class ProfilePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public memberProvider: MemberProvider,
+    public toastProvider: ToastProvider,
   ) {
     this.member = JSON.parse(window.localStorage.getItem('member'));
     console.log('this.member.memail='+this.member.memail);
@@ -39,6 +41,7 @@ export class ProfilePage {
       // console.log('modify  = ' + result)
       // window.localStorage.setItem('member', result);
       console.log('profile.ts # localStorage 확인 = '+ window.localStorage.getItem('member'))
+      this.toastProvider.presentToast('수정되었습니다.', 'bottom', 'bottomToast');
     })
   }
 

@@ -44,7 +44,7 @@
     </ion-card-content>
     <ion-row text-center no-padding *ngIf="truckOwner">
       <ion-col no-padding style="background: rgba(224, 228, 228, 0.45)">
-        <button ion-button clear style="color: #838585" icon-start>
+        <button ion-button clear style="color: #838585" (click)="presentTruckModal()" icon-start>
           트럭정보수정
         </button>
       </ion-col>

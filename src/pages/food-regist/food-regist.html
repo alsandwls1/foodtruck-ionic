@@ -23,16 +23,20 @@
   <form (ngSubmit)="submit()">
     <ion-list>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="food.name" [ngModelOptions]="{standalone: true}"placeholder="name"></ion-input>
+        <ion-label floating>이름</ion-label>
+        <ion-input type="text" [(ngModel)]="food.name" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="food.price" [ngModelOptions]="{standalone: true}"placeholder="price"></ion-input>
+        <ion-label floating>가격</ion-label>
+        <ion-input type="text" [(ngModel)]="food.price" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="food.description" [ngModelOptions]="{standalone: true}"placeholder="description"></ion-input>
+        <ion-label floating>설명</ion-label>
+        <ion-input type="text" [(ngModel)]="food.description" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="file" (change)="selectFile($event)" placeholder="file"></ion-input>
+        <ion-label stacked>이미지</ion-label>
+        <ion-input type="file" (change)="selectFile($event)" ></ion-input>
       </ion-item>
       <div padding>
         <button type="submit" ion-button color="primary" block>Save</button>

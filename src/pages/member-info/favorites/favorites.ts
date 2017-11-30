@@ -35,6 +35,16 @@ export class FavoritesPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavoritesPage');
     this.getFavorites(this.member.memail);
+
+    //마이페이지를 통해서 트럭을 들어갔을 때, 트럭 즐겨찾기를 비동기적으로 제어
+    this.favoriteProvider.getObservable().subscribe(result => {
+      this.favorites = null;
+      if (result.favo === 'insert') {
+        this.getFavorites(this.member.memail);
+      } else {
+        this.getFavorites(this.member.memail);
+      }
+    });
   }
 
   getFavorites(email:string) {
@@ -51,7 +61,7 @@ export class FavoritesPage {
       });
   }
 
-  //modal로 띄워야 할 듯.
+  //modal로 띄움
   goToTruckInfo(f) {
     let profileModal = this.modalCtrl.create(TruckInfoPage, {
       truck: f,

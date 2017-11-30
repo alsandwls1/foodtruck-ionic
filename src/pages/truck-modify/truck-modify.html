@@ -1,0 +1,102 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>트럭정보 수정</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item hidden="hidden">
+        <ion-label stacked>번호</ion-label>
+        <ion-input type="text" [(ngModel)]="model.tid" value="{{truck.tid}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>이름</ion-label>
+        <ion-input type="text" [(ngModel)]="model.tname" value="{{truck.tname}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Open</ion-label>
+        <ion-input type="text" [(ngModel)]="model.topen" value="{{truck.topen}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Close</ion-label>
+        <ion-input type="text" [(ngModel)]="model.tclose" value="{{truck.tclose}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>위치</ion-label>
+        <ion-input type="text" [(ngModel)]="model.taddress" value="{{truck.taddress}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item hidden="hidden">
+        <ion-label stacked>위,경도</ion-label>
+        <ion-input type="text" [(ngModel)]="model.tlat" value="{{truck.tlat}}" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-input type="text" [(ngModel)]="model.tlng" value="{{truck.tlng}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button type="button" (click)="agm()" ion-button color="light" block >위치 수정</button>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>한마디</ion-label>
+        <ion-input type="text" [(ngModel)]="model.tcomment" value="{{truck.tcomment}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Image</ion-label>
+        <ion-input type="file" (change)="selectFile($event)"></ion-input>
+      </ion-item>
+      <ion-item>
+        <img *ngIf="!url" src="http://localhost:8080/image/{{truck.timage}}" alt="" width="120px" height="120px">
+        <img src="{{url}}" alt="" width="120px" height="120px">
+      </ion-item>
+      <div>
+      </div>
+      <ion-row>
+        <ion-col>
+          <button type="submit" ion-button class="submit-btn" full>Save</button>
+        </ion-col>
+      </ion-row>
+
+    </ion-list>
+  </form>
+</ion-content>
+
+<!-- <ion-content padding>
+  <form (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="truck.tname" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="truck.topen" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="truck.tclose" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="truck.tlat" ></ion-input>
+        <ion-input type="text" [(ngModel)]="truck.tlng"></ion-input>
+      </ion-item>
+      <ion-item>
+        <button type="button" (click)="agm()" ion-button color="primary" block >위치 등록</button>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="truck.tcontent" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="file" (change)="selectFile($event)" placeholder="file"></ion-input>
+      </ion-item>
+      <div padding>
+        <button type="submit" ion-button color="primary" block>Sign In</button>
+      </div>
+      <div>
+        <img src="{{url}}" alt="" width="120px" height="120px">
+      </div>
+    </ion-list>
+  </form>
+</ion-content> -->

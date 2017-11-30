@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 //pages
 import { FoodRegistPage } from '../../pages/food-regist/food-regist';
+import { TruckModifyPage } from '../../pages/truck-modify/truck-modify';
 //providers
 import { FoodProvider } from '../../providers/food/food';
 import { ReviewProvider } from '../../providers/review/review';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { TruckProvider } from '../../providers/truck/truck';
 import { ToastProvider } from '../../providers/toast/toast';
 
 /**
@@ -42,6 +44,9 @@ export class TruckInfoPage {
   check: boolean = false;
   hid: string;
 
+  //segment의 default값 지정
+  pet: string = 'menus';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,6 +56,7 @@ export class TruckInfoPage {
     public foodProvider: FoodProvider,
     public reviewProvider: ReviewProvider,
     public favoriteProvider: FavoriteProvider,
+    public truckProvider: TruckProvider,
   ) {
     // console.log('TruckInfoPage constructor = ' + navParams.get('truck'));
     this.truck = navParams.get('truck');
@@ -101,7 +107,7 @@ export class TruckInfoPage {
       }
     });
 
-    //즐겨찿기 추가 시, 버튼 삭제
+    //즐겨찿기 추가&삭제 시, 버튼 변경
     this.favoriteProvider.getObservable().subscribe(result => {
       if (result.favo === 'insert') {
         console.log('즐겨찾기 추가시 icon = heart = ' + result.favo)
@@ -111,11 +117,25 @@ export class TruckInfoPage {
         this.check = false;
       }
     });
+
+    //트럭을 수정하면 비동기적으로 처리
+    this.truckProvider.getObservable().subscribe(result => {
+      console.log(result.modify);
+      if(result.modify){
+        this.truck = JSON.parse(result.modify);
+      }
+    });
   } //// End ionViewDidLoad
 
   //음식등록모달
   presentProfileModal() {
     let profileModal = this.modalCtrl.create(FoodRegistPage, { userId: this.truck.tid });
+    profileModal.present();
+  }
+
+  //트럭정보 수정 모달
+  presentTruckModal() {
+    let profileModal = this.modalCtrl.create(TruckModifyPage, { truck: this.truck });
     profileModal.present();
   }
 

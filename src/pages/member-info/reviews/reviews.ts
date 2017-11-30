@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+//pages
+import { TruckInfoPage } from '../../../pages/truck-info/truck-info';
+//providers
 import { ReviewProvider } from '../../../providers/review/review';
 
 /**
@@ -23,6 +25,7 @@ export class ReviewsPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public modalCtrl: ModalController,
     public reviewProvider: ReviewProvider,
 
   ) {
@@ -48,4 +51,14 @@ export class ReviewsPage {
         }
       });
   }
+
+  //TODO:modal로 띄움
+  goToTruckInfo(f) {
+    let profileModal = this.modalCtrl.create(TruckInfoPage, {
+      truck: f,
+      modal: 'yes'
+    });
+    profileModal.present();
+  }
+
 }

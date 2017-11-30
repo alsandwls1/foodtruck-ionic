@@ -15,6 +15,7 @@ import { SupportPage } from '../pages/support/support';
 import { LoginPage } from '../pages/login/login';
 import { JoinPage } from '../pages/join/join';
 import { FoodRegistPage } from '../pages/food-regist/food-regist';
+import { TruckModifyPage } from '../pages/truck-modify/truck-modify';
 // import { TruckMapPage } from '../pages/truck-map/truck-map';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -59,6 +60,7 @@ import { ToastProvider } from '../providers/toast/toast';
     LoginPage,
     JoinPage,
     FoodRegistPage,
+    TruckModifyPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -90,6 +92,7 @@ import { ToastProvider } from '../providers/toast/toast';
     LoginPage,
     JoinPage,
     FoodRegistPage,
+    TruckModifyPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
