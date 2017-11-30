@@ -35,7 +35,7 @@ export class MyApp {
   truck: any;
   nickname: string;
   registype: number;
-  check: number;
+  check: number; //사업자 회원이 트럭등록을 했는지 체크
 
   constructor(
     public platform: Platform,

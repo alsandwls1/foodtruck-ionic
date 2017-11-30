@@ -25,6 +25,12 @@ export class TruckInfoPage {
   foods: any[] = [];
   reviews: any[] = [];
 
+  //로그인 되었는지 체크
+  member: any;
+
+  //트럭주인인지 체크
+  truckOwner: boolean = false;
+
   //등록되지 않은 메세지 처리
   foodError: string;
   reviewError: string;
@@ -51,21 +57,19 @@ export class TruckInfoPage {
     this.modal = navParams.get('modal');
   }
 
-  //음식등록모달
-  presentProfileModal() {
-    let profileModal = this.modalCtrl.create(FoodRegistPage, { userId: this.truck.tid });
-    profileModal.present();
-  }
-
-  //즐겨찾기를 통해서 들어왔을때 사용할 모달닫기
-  dismiss() {
-    console.log(this.modal);
-    this.viewCtrl.dismiss();
-  }
-
   //시작할 때 기동
   ionViewDidLoad() {
     console.log('ionViewDidLoad TruckInfoPage');
+
+    //로그인이 되어 있는지 체크
+    if (window.localStorage.getItem('member')) {
+      this.member = JSON.parse(window.localStorage.getItem('member'));
+      this.checkTruck(); //트럭주인체크
+      if(!this.truckOwner){ //트럭주인이 아니면 즐겨찾기 체크를 함
+        this.checkFavorite(this.truck.tid);
+      }
+    }
+
     //메뉴리스트 불러오기
     this.foodProvider.getAllfoods(this.truck.tid).subscribe(res => {
       let json = res.json();
@@ -97,42 +101,70 @@ export class TruckInfoPage {
       }
     });
 
-    //즐겨찾기 체크
-    this.checkFavorite(this.truck.tid);
     //즐겨찿기 추가 시, 버튼 삭제
     this.favoriteProvider.getObservable().subscribe(result => {
-      if (result.favo === 'ok') {
+      if (result.favo === 'insert') {
+        console.log('즐겨찾기 추가시 icon = heart = ' + result.favo)
         this.check = true;
+      } else {
+        console.log('즐겨찾기 삭제시 icon = heart-outline = ' + result.favo)
+        this.check = false;
       }
     });
+  } //// End ionViewDidLoad
+
+  //음식등록모달
+  presentProfileModal() {
+    let profileModal = this.modalCtrl.create(FoodRegistPage, { userId: this.truck.tid });
+    profileModal.present();
+  }
+
+  //즐겨찾기를 통해서 들어왔을때 사용할 모달닫기
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  //트럭 주인인지 아닌지를 확인
+  checkTruck() {
+    console.log('checkTruck # truckOwner')
+    if (this.member.memail === this.truck.tmember) {
+      this.truckOwner = true;
+    } else {
+      this.truckOwner = false;
+    }
   }
 
   //즐겨찾기 추가
   addFavorite(tid: any) {
     this.favoriteProvider.addFavorite(tid).subscribe(() => {
-      //화면 갱신을 위해서 호출
-      this.favoriteProvider.checkFavorite(tid);
       this.toastProvider.presentToast('추가되었습니다.', 'bottom', 'bottomToast');
-
     });
   }
 
-  // //즐겨찾기 삭제
-  // deleteFavorite(hid: any) {
-  //   console.log('deleteFavorite hid = ' + hid);
-  //   this.favoriteProvider.deleteFavorite(hid).subscribe(() => {
-  //     //화면 갱신을 위해서 호출
-  //     this.checkFavorite(this.truck.tid);
-  //     this.toastProvider.presentToast('삭제되었습니다.', 'bottom', 'bottomToast');
-  //   });
-  // }
-  //
-  //즐겨찾기 체크
+  //즐겨찾기 삭제
+  deleteFavorite(tid: string) {
+    this.checkFavorite(tid);
+    console.log('deleteFavorite hid = ' + this.hid);
+    this.favoriteProvider.deleteFavorite(this.hid).subscribe(() => {
+      this.toastProvider.presentToast('삭제되었습니다.', 'bottom', 'bottomToast');
+    });
+  }
+
+
+  //즐겨찾기 체크 ->
+  //1.해당 즐겨찾기의 hid 구함
+  //2.새로고침했을 때, icon heart로 보일 수 있게 check값 변경
   checkFavorite(tid: string) {
     this.favoriteProvider.checkFavorite(this.truck.tid).subscribe(res => {
-      console.log(res);
-      this.hid = JSON.parse(res).hid;
+      if (res) {
+        this.hid = JSON.parse(res).hid;
+        this.check = true;
+        console.log('this.hid= ' + this.hid);
+      } else {
+        this.hid = null;
+      }
     });
   }
+
 
 }

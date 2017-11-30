@@ -20,7 +20,7 @@ export class ToastProvider {
       message: message,
       cssClass: cssClass,
       position: position,
-      duration: 3000,
+      duration: 2000,
     });
 
     toast.onDidDismiss(() => {

@@ -12,32 +12,33 @@
     <img src="http://localhost:8080/image/{{truck.timage}}" />
     <ion-card-content>
       <ion-card-title>
-        NO. {{truck.tid}} | {{truck.tname}}
+        {{truck.tname}}
       </ion-card-title>
+      <p>별점: {{truck.tavg}}</p>
       <p>
         {{truck.taddress}}
       </p>
     </ion-card-content>
 
     <ion-row no-padding>
-      <ion-col>
+      <!-- <ion-col>
         <button ion-button clear small color="danger" icon-start>
           <ion-icon name='star'></ion-icon>
           Favorite
         </button>
-      </ion-col>
+      </ion-col> -->
       <ion-col text-center>
         <button ion-button clear small color="danger" (click)="onGoToinfo(truck)" icon-start>
           <ion-icon name='log-in'></ion-icon>
           Enter
         </button>
       </ion-col>
-      <ion-col text-right>
+      <!-- <ion-col text-right>
         <button ion-button clear small color="danger" icon-start>
           <ion-icon name='logo-facebook'></ion-icon>
           fb-like
         </button>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-card>
 </ion-content>

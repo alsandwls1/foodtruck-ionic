@@ -18,7 +18,7 @@
         <ion-icon name='arrow-back'></ion-icon>
       </button>
     </ion-buttons>
-    <ion-buttons start>
+    <ion-buttons start *ngIf="member && !truckOwner">
       <button ion-button *ngIf="check" (click)="deleteFavorite(truck.tid)" clear small>
         <ion-icon class="iconHeart" name='heart'></ion-icon>
       </button>
@@ -42,7 +42,18 @@
       <p> 영업시간 : {{truck.topen}} ~ {{truck.tclose}} </p>
       <p> 평점 : {{truck.tavg}}</p>
     </ion-card-content>
-    <button type="button" (click)="presentProfileModal()" name="button">모달띠우기</button>
+    <ion-row text-center no-padding *ngIf="truckOwner">
+      <ion-col no-padding style="background: rgba(224, 228, 228, 0.45)">
+        <button ion-button clear style="color: #838585" icon-start>
+          트럭정보수정
+        </button>
+      </ion-col>
+      <ion-col no-padding style="background: rgba(224, 228, 228, 0.45); font-color: black">
+        <button ion-button clear  style="color: #838585" (click)="presentProfileModal()" icon-start>
+          &nbsp;&nbsp;&nbsp;메뉴등록&nbsp;&nbsp;&nbsp;
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-card>
 
   <div padding>

@@ -42,24 +42,24 @@ export class FavoriteProvider {
     let hotlist = { "hMember": this.member.memail, "hTruck": tid };
 
     return this.http.post(url, JSON.stringify(hotlist), { headers: headers })
-      .map(res => res.text());
+      .map(res => {
+        //무조건 성공이므로 res의 결과에 상관없이 ok가 된다.
+        this.subject.next({ favo: 'insert' });
+        return res.text();
+      });
   }
 
   deleteFavorite(hid: string): Observable<any> {
     var url = `${this.favoriteUrl}/${hid}`;
-    return null;
+    console.log('deleteFavorite url='+url);
+
+    return this.http.delete(url)
+      .map(res => {
+        //무조건 성공이므로 res의 결과에 상관없이 delete가 된다.
+        this.subject.next({ favo: 'delete' });
+        return res.text();
+      });
   }
-  // removeHotlist(hotlistdetail: HotlistDetail): Observable<string> {
-  //     let url = `${this.hotlistUrl}/${hotlistdetail.hid}`;
-  //     console.log('remove url='+url);
-  //     return this.http.delete(url, {headers:this.headers})
-  //     .map(res => {
-  //       let json = res.text();
-  //       // this.subject.next({ json });
-  //       return json || {};
-  //     })
-  //     ._catch(this.handleError);
-  //   }
 
   //즐겨찾기 체크
   checkFavorite(tid: string): Observable<any> {
@@ -69,9 +69,11 @@ export class FavoriteProvider {
       res => {
         //회원이 해당 트럭을 즐겨찾기 했다면 res.text()값이 존재
         if (res.text()) {
-          console.log('if(res.text()) = ' + res.text());
-          this.subject.next({ favo: 'ok' });
+          console.log('checkFavorite # if(res.text()) = ' + res.text());
           return res.text();
+        } else {
+          console.log('checkFavorite # else(res.text()) = ' + res.text());
+          return null;
         }
       }
     );
