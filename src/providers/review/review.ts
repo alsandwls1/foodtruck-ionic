@@ -34,8 +34,31 @@ export class ReviewProvider {
 
   //트럭 리뷰목록
   getTruckReview(tid: string) {
-    const url = this.reviewUrl + `/truck/${tid}`;
+    const url = `${this.reviewUrl}/truck/${tid}`;
     return this.http.get(url);
+  }
+
+  //리뷰작성 - 이미지 X
+  addReview(review: any): Observable<any> {
+    const url = `${this.reviewUrl}/post2`;
+    let formdata: FormData = new FormData();
+
+    formdata.append('comment', review.rcomment);
+    formdata.append('score', review.rscore);
+    formdata.append('email', review.rmember);
+    formdata.append('truck', review.rtruck);
+
+    console.log('reivew 1=' + formdata.get('comment'));
+    console.log('reivew 3=' + formdata.get('score'));
+    console.log('reivew 4=' + formdata.get('email'));
+    console.log('reivew 5=' + formdata.get('truck'));
+
+    return this.http.post(url, formdata)
+      .map(()=> {
+        console.log('review getObservable1')
+        this.subject.next({ review: 'insert' })
+        console.log('review getObservable2')
+      });
   }
 
 }

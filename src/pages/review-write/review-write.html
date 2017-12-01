@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>리뷰 등록</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>작성자</ion-label>
+        <ion-input type="text" [(ngModel)]="review.rmember" [ngModelOptions]="{standalone: true}" readonly></ion-input>
+      </ion-item>
+      <ion-item lines>
+        <ion-label stacked>글내용</ion-label>
+        <ion-textarea rows="5" type="text" [(ngModel)]="review.rcomment" [ngModelOptions]="{standalone: true}"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>별점</ion-label>
+        <ion-input type="number" [(ngModel)]="review.rscore" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>이미지</ion-label>
+        <ion-input type="file" (change)="selectFile($event)" ></ion-input>
+      </ion-item>
+      <div>
+        <img src="{{url}}" alt="" width="120px" height="120px">
+      </div>
+      <div padding>
+        <button type="submit" ion-button color="primary" block>Save</button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

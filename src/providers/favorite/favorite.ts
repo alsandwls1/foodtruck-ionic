@@ -22,6 +22,7 @@ export class FavoriteProvider {
 
     if (window.localStorage.getItem('member')) {
       this.member = JSON.parse(window.localStorage.getItem('member'));
+      console.log('FavoriteProvider=='+this.member);
     }
   }
 

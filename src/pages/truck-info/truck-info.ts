@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 //pages
 import { FoodRegistPage } from '../../pages/food-regist/food-regist';
+import { ReviewWritePage } from '../../pages/review-write/review-write';
 import { TruckModifyPage } from '../../pages/truck-modify/truck-modify';
 //providers
 import { FoodProvider } from '../../providers/food/food';
@@ -87,6 +88,17 @@ export class TruckInfoPage {
       }
     });
 
+    //푸드등록을 하면 비동기적으로 getAllfoods() 처리
+    this.foodProvider.getObservable().subscribe(res => {
+      if (res.check == 'true') {
+        this.foodProvider.getAllfoods(this.truck.tid).subscribe(res => {
+          this.foodError = null;
+          // console.log(res.json());
+          this.foods = res.json();
+        });
+      }
+    });
+
     //트럭리뷰 불러오기
     this.reviewProvider.getTruckReview(this.truck.tid).subscribe(res => {
       let json = res.json();
@@ -97,12 +109,14 @@ export class TruckInfoPage {
       }
     });
 
-    //푸드등록을 하면 비동기적으로 getAllfoods() 처리
-    this.foodProvider.getObservable().subscribe(res => {
-      if (res.check == 'true') {
-        this.foodProvider.getAllfoods(this.truck.tid).subscribe(res => {
-          console.log(res.json());
-          this.foods = res.json();
+    //리뷰등록을 하면 비동기적으로 getTruckReview() 처리
+    this.reviewProvider.getObservable().subscribe(res => {
+      console.log(res.review)
+      if (res.review == 'insert') {
+        this.reviewProvider.getTruckReview(this.truck.tid).subscribe(res => {
+          this.reviewError = null;
+          // console.log(res.json());
+          this.reviews = res.json();
         });
       }
     });
@@ -130,6 +144,16 @@ export class TruckInfoPage {
   //음식등록모달
   presentProfileModal() {
     let profileModal = this.modalCtrl.create(FoodRegistPage, { userId: this.truck.tid });
+    profileModal.present();
+  }
+
+  //리뷰등록모달
+  presentReviewModal() {
+    let profileModal = this.modalCtrl
+      .create(ReviewWritePage, {
+        tid: this.truck.tid,
+        email:this.member.memail
+      });
     profileModal.present();
   }
 

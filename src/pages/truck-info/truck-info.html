@@ -31,7 +31,7 @@
 </ion-header>
 
 
-<ion-content class="cards-bg">
+<ion-content class="cards-bg outer-content">
   <ion-card>
     <img src="http://localhost:8080/image/{{truck.timage}}" />
     <ion-card-content>
@@ -44,13 +44,9 @@
     </ion-card-content>
     <ion-row text-center no-padding *ngIf="truckOwner">
       <ion-col no-padding style="background: rgba(224, 228, 228, 0.45)">
-        <button ion-button clear style="color: #838585" (click)="presentTruckModal()" icon-start>
+        <button ion-button clear style="color: #707474" (click)="presentTruckModal()" icon-start>
+          <ion-icon ios="ios-car" md="ios-car"></ion-icon>
           트럭정보수정
-        </button>
-      </ion-col>
-      <ion-col no-padding style="background: rgba(224, 228, 228, 0.45); font-color: black">
-        <button ion-button clear  style="color: #838585" (click)="presentProfileModal()" icon-start>
-          &nbsp;&nbsp;&nbsp;메뉴등록&nbsp;&nbsp;&nbsp;
         </button>
       </ion-col>
     </ion-row>
@@ -69,13 +65,34 @@
 
   <div [ngSwitch]="pet">
     <ion-list *ngSwitchCase="'menus'">
-      <ion-item *ngFor="let f of foods">
-        <ion-thumbnail item-start>
-          <img src="http://localhost:8080/image/{{f.fimage}}">
-        </ion-thumbnail>
-        <h2>이름 : {{f.fname}}</h2>
-        <h2>가격 : {{f.fprice}}</h2>
-      </ion-item>
+      <ion-row *ngIf="truckOwner">
+        <ion-col style="margin: 0px 8px 0px 8px">
+          <button ion-button full icon-start color="light" (click)="presentProfileModal()">
+            <ion-icon name="restaurant"></ion-icon>
+            메뉴 등록하기
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-item-sliding  *ngFor="let f of foods">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="http://localhost:8080/image/{{f.fimage}}">
+          </ion-thumbnail>
+          <h2>이름 : {{f.fname}}</h2>
+          <h2>가격 : {{f.fprice}}</h2>
+        </ion-item>
+        <ion-item-options *ngIf="truckOwner">
+          <button ion-button color="secondary" icon-start>
+            <ion-icon ios="ios-construct" md="md-construct"></ion-icon>
+            Update
+          </button>
+          <button ion-button color="danger" icon-start>
+            <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+
       <ion-card *ngIf="foodError">
         <ion-card-content>
           {{foodError}}
@@ -84,15 +101,27 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'reviews'">
-      <ion-item *ngFor="let r of reviews">
-        <ion-thumbnail item-start *ngIf="r.rimage">
-          <img src="http://localhost:8080/image/{{r.rimage}}">
-        </ion-thumbnail>
-        <h3>작성자: {{r.rmember}}</h3>
-        <h3>작성일 : {{ r.rdate}}</h3>
-        <h3>내용 : {{r.rcomment}} </h3>
-        <h3>{{r.rscore}}</h3>
-      </ion-item>
+      <ion-row  *ngIf="member && !truckOwner">
+        <ion-col style="margin: 0px 8px 0px 8px">
+          <button ion-button full icon-start color="light" (click)="presentReviewModal()">
+            <ion-icon name="create"></ion-icon>
+            리뷰 작성하기
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item *ngFor="let r of reviews">
+            <ion-thumbnail item-start *ngIf="r.rimage">
+              <img src="http://localhost:8080/image/{{r.rimage}}">
+            </ion-thumbnail>
+            <h3>작성자: {{r.rmember}}</h3>
+            <h3>작성일 : {{ r.rdate}}</h3>
+            <h3>내용 : {{r.rcomment}} </h3>
+            <h3>점수: {{r.rscore}}</h3>
+          </ion-item>
+        </ion-col>
+      </ion-row>
       <ion-card *ngIf="reviewError">
         <ion-card-content>
           {{reviewError}}
