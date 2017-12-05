@@ -15,9 +15,6 @@
         <button  class="btn" ion-button icon-only menuClose (click)="goToLogin()">
           &nbsp;&nbsp;&nbsp;&nbsp;Login &nbsp;&nbsp;&nbsp;&nbsp;
         </button>
-        <!-- <button class="btn" ion-button icon-only menuClose (click)="goToJoin()">
-          Join&nbsp;&nbsp;&nbsp;&nbsp;
-        </button> -->
       </ion-buttons>
       <ion-buttons right>
         <button *ngIf="member" ion-button menuClose icon-only color="royal" (click)="goToMemberInfo()">
@@ -29,25 +26,32 @@
 
 
   <ion-content>
-    <ion-list>
-      <button *ngIf="registype === 2 && check === 0" menuClose ion-item (click)="goToTruckRegist()">
+    <ion-list style="margin: 0.5em 0.5em 0.5em 0.5em">
+      <button ion-button full color="light" *ngIf="registype === 2 && check === 0" menuClose  (click)="goToTruckRegist()">
         푸드트럭등록
       </button>
-      <button *ngIf="registype === 2 && check === 1" menuClose ion-item (click)="goToTruckInfo()">
+      <button ion-button full color="light" *ngIf="registype === 2 && check === 1" menuClose  (click)="goToTruckInfo()">
         나의트럭가기
       </button>
+      <hr>
     </ion-list>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button class="menuTitle" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
-      </button>
-    </ion-list>
-    <ion-list *ngIf="member">
-      <button menuClose ion-item (click)="goToLogout()">
-        로그아웃
+        <ion-icon float-right small name="ios-arrow-forward"></ion-icon>
       </button>
     </ion-list>
   </ion-content>
+
+  <ion-footer style="background:rgb(244, 240, 240)">
+    <ion-list *ngIf="member" style="margin: 0.5em 0.5em 0.5em 0.5em; text-align:center">
+      <p style="color: rgb(152, 149, 148); font-size: 0.6em; margin-bottom:0">Copyright Foodtruck. All Rights Reserved.</p>
+      <p style="color: rgb(152, 149, 148); font-size: 0.6em; margin:0 0 0 0">©FoodTruck</p>
+      <button menuClose ion-button round small clear style="color: rgb(128, 127, 126); background: rgb(214, 209, 209)"  (click)="goToLogout()">
+        로그아웃
+      </button>
+    </ion-list>
+  </ion-footer>
 
 </ion-menu>
 

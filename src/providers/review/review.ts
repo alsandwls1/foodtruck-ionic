@@ -61,4 +61,29 @@ export class ReviewProvider {
       });
   }
 
+  //리뷰작성 - 이미지 O
+  addReviewIncludeImgFile(review: any): Observable<any> {
+    const url = `${this.reviewUrl}/post`;
+    let formdata: FormData = new FormData();
+
+    formdata.append('comment', review.rcomment);
+    formdata.append('score', review.rscore);
+    formdata.append('email', review.rmember);
+    formdata.append('truck', review.rtruck);
+    formdata.append('image', review.rimage);
+
+    console.log('reivew 1=' + formdata.get('comment'));
+    console.log('reivew 2=' + formdata.get('image'));
+    console.log('reivew 3=' + formdata.get('score'));
+    console.log('reivew 4=' + formdata.get('email'));
+    console.log('reivew 5=' + formdata.get('truck'));
+
+    return this.http.post(url, formdata)
+      .map(()=> {
+        console.log('review addReviewIncludeImgFile() getObservable1')
+        this.subject.next({ review: 'insert' })
+        console.log('review addReviewIncludeImgFile() getObservable2')
+      });
+  }
+
 }

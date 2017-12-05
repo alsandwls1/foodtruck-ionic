@@ -11,7 +11,7 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding  class="outer-content">
   <form (ngSubmit)="submit()">
     <ion-list>
       <ion-item hidden="hidden">
@@ -24,11 +24,11 @@
       </ion-item>
       <ion-item>
         <ion-label stacked>Open</ion-label>
-        <ion-input type="text" [(ngModel)]="model.topen" value="{{truck.topen}}" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="H mm" [(ngModel)]="model.topen" minuteValues="0,15,30,45" max="{{model.tclose}}" [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label stacked>Close</ion-label>
-        <ion-input type="text" [(ngModel)]="model.tclose" value="{{truck.tclose}}" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="H mm" [(ngModel)]="model.tclose" minuteValues="0,15,30,45" min="{{model.topen}}" [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label stacked>위치</ion-label>
@@ -44,7 +44,7 @@
       </ion-item>
       <ion-item>
         <ion-label stacked>한마디</ion-label>
-        <ion-input type="text" [(ngModel)]="model.tcomment" value="{{truck.tcomment}}" [ngModelOptions]="{standalone: true}"></ion-input>
+        <ion-textarea rows="5" type="text" [(ngModel)]="model.tcomment" value="{{truck.tcomment}}" [ngModelOptions]="{standalone: true}"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label stacked>Image</ion-label>

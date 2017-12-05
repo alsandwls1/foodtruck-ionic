@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -14,24 +14,24 @@ export class FoodProvider {
 
   private subject = new Subject<any>();
 
-  public API = 'http://localhost:8080';
-  public TEST_API = this.API + '/foods';
+  public foodUrl = 'http://localhost:8080/foods';
 
   constructor(public http: Http) {
     console.log('Hello FoodProvider Provider');
   }
+
   getObservable(): Observable<any> {
-    console.log('getObservable() working');
+    console.log('FoodProvider # getObservable() working');
     return this.subject.asObservable();
   }
 
   getAllfoods(tid: string) {
-    const url = this.TEST_API + `/${tid}`;
+    const url = `${this.foodUrl}/${tid}`;
     return this.http.get(url);
   }
 
   postTruck(food) {
-    const url = this.TEST_API + `/post`;
+    const url = `${this.foodUrl}/post`;
     let formdata: FormData = new FormData();
 
     formdata.append('name', food.name);
@@ -44,7 +44,39 @@ export class FoodProvider {
       .subscribe(res => {
         this.subject.next({ check: 'true' });
       }
-    );
+      );
+  }
+
+  //푸드 수정 - 이미지 X
+  modifyFood(f: any):Observable<any> {
+    const url = `${this.foodUrl}/update2`;
+    let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
+    let food = { 'fid': f.fid, 'fname': f.fname, 'fprice': f.fprice, 'fdescription': f.fdescription };
+
+    return this.http.post(url, JSON.stringify(food), {headers:headers})
+      .map(res => {
+        this.subject.next({modify: 'ok'});
+        return res.text();
+      });
+  }
+
+  //푸드 수정 - 이미지 o
+  modifyFoodIncludeImg(f: any):Observable<any>{
+    const url = `${this.foodUrl}/update`;
+    let formdata: FormData = new FormData();
+    console.log(f.fid)
+
+    formdata.append('name', f.fname);
+    formdata.append('price', f.fprice);
+    formdata.append('description', f.fdescription);
+    formdata.append('image', f.fimage);
+    formdata.append('fid', f.fid);
+
+    return this.http.post(url, formdata)
+      .map(res => {
+        this.subject.next({modify: 'ok'});
+        return res.text();
+      });
   }
 
 

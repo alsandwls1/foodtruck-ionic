@@ -37,7 +37,7 @@ Ionic pages and navigation.
         <button type="button" (click)="agm()" ion-button color="primary" block >위치 등록</button>
       </ion-item>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="truck.content" [ngModelOptions]="{standalone: true}"placeholder="content"></ion-input>
+        <ion-textarea rows="5" type="text" [(ngModel)]="truck.comment" [ngModelOptions]="{standalone: true}"placeholder="comment"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-input type="file" (change)="selectFile($event)" placeholder="file"></ion-input>

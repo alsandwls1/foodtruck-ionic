@@ -38,8 +38,10 @@ export class TruckModifyPage {
     private toastProvider: ToastProvider,
     private truckProvider: TruckProvider,
   ) {
-    console.log(navParams.get('truck'));
+    // console.log(navParams.get('truck'));
     this.truck = navParams.get('truck');
+    this.model.topen = this.truck.topen;
+    this.model.tclose = this.truck.tclose;
   }
 
   ionViewDidLoad() {
@@ -59,7 +61,7 @@ export class TruckModifyPage {
     }
     //이미지 수정 할 때
     else {
-      this.truckProvider.modifyTruckIncludeImgFile(this.truck).subscribe(() => {
+      this.truckProvider.modifyTruckIncludeImgFile(this.model).subscribe(() => {
         this.toastProvider.presentToast('수정되었습니다', 'bottom', 'bottomToast');
         this.dismiss();
       });
@@ -70,13 +72,13 @@ export class TruckModifyPage {
   agm() {
     navigator.geolocation.getCurrentPosition((position) => {
       console.log('위도 경도 = '+position.coords.latitude+", "+position.coords.longitude)
-      this.truck.tlat = position.coords.latitude;
-      this.truck.tlng = position.coords.longitude;
+      this.model.tlat = position.coords.latitude;
+      this.model.tlng = position.coords.longitude;
       //트럭 주소 수정
       this.truckProvider.getTruckAddress(position.coords.latitude, position.coords.longitude)
         .subscribe(result => {
           console.log(result);
-          this.truck.taddress = result;
+          this.model.taddress = result;
         })
     });
   }
@@ -85,7 +87,7 @@ export class TruckModifyPage {
   selectFile(event) {
     this.selectedFiles = event.target.files;
     // this.currentFileUpload = this.selectedFiles.item(0)
-    this.truck.timage = this.selectedFiles.item(0)
+    this.model.timage = this.selectedFiles.item(0)
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.onload = (event: any) => {

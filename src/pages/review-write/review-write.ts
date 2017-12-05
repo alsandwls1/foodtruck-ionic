@@ -66,34 +66,22 @@ export class ReviewWritePage {
       this.addReview(this.review);
     } else {
       this.review.rimage = this.currentFileUpload;
-      this.addReviewIncludeImgFile(this.review)
+      this.addReviewIncludeImgFile(this.review);
     }
-    // this.food.file = this.currentFileUpload;
-    // this.food.tid = this.tid;
-    // console.log(this.currentFileUpload)
-    // console.log(this.food);
-    //
-    // this.foodProvider.postTruck(this.food);
-    // this.foodProvider.getObservable().subscribe(res => {
-    //   if (res.check == 'true') {
-    //     this.dismiss();
-    //   }
-    // })
-
   }
 
   //이미지 X
   addReview(review: any) {
     this.reviewProvider.addReview(review).subscribe(() => {
-      console.log('???')
       this.dismiss();
     });
-    // this.reviewService.addReview2(comment, score, email, truck);
-    // alert('등록완료')
   }
 
+  //이미지 O
   addReviewIncludeImgFile(review: any) {
-
+    this.reviewProvider.addReviewIncludeImgFile(review).subscribe(() => {
+      this.dismiss();
+    });
   }
 
 

@@ -43,7 +43,7 @@ export class TruckProvider {
         formdata.append('close', truck.close);
         formdata.append('lat', truck.lat);
         formdata.append('lng', truck.lng);
-        formdata.append('comment', truck.content);
+        formdata.append('comment', truck.comment);
         formdata.append('file', truck.file);
         formdata.append('address', address);
         formdata.append('email', truck.member);

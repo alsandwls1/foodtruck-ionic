@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController } 
 import { FoodRegistPage } from '../../pages/food-regist/food-regist';
 import { ReviewWritePage } from '../../pages/review-write/review-write';
 import { TruckModifyPage } from '../../pages/truck-modify/truck-modify';
+import { FoodModifyPage } from '../../pages/food-modify/food-modify';
 //providers
 import { FoodProvider } from '../../providers/food/food';
 import { ReviewProvider } from '../../providers/review/review';
@@ -47,6 +48,7 @@ export class TruckInfoPage {
 
   //segment의 default값 지정
   pet: string = 'menus';
+  fixedTimezone = '2015-06-15T09:03:01+0900';
 
   constructor(
     public navCtrl: NavController,
@@ -99,6 +101,17 @@ export class TruckInfoPage {
       }
     });
 
+    //푸드수정되었을 때, 비동기 처리
+    this.foodProvider.getObservable().subscribe(res => {
+      console.log(res.modify);
+      if(res.modify === 'ok') {
+        this.foodProvider.getAllfoods(this.truck.tid).subscribe(res => {
+          this.foods = res.json();
+        });
+      }
+
+    });
+
     //트럭리뷰 불러오기
     this.reviewProvider.getTruckReview(this.truck.tid).subscribe(res => {
       let json = res.json();
@@ -144,6 +157,12 @@ export class TruckInfoPage {
   //음식등록모달
   presentProfileModal() {
     let profileModal = this.modalCtrl.create(FoodRegistPage, { userId: this.truck.tid });
+    profileModal.present();
+  }
+
+  //음식수정모달
+  modifyMenu(food) {
+    let profileModal = this.modalCtrl.create(FoodModifyPage, { food: food });
     profileModal.present();
   }
 

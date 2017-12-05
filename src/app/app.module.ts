@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+import { DatePipe } from '@angular/common';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 
 import { MyApp } from './app.component';
@@ -17,6 +18,7 @@ import { JoinPage } from '../pages/join/join';
 import { FoodRegistPage } from '../pages/food-regist/food-regist';
 import { TruckModifyPage } from '../pages/truck-modify/truck-modify';
 import { ReviewWritePage } from '../pages/review-write/review-write';
+import { FoodModifyPage } from '../pages/food-modify/food-modify';
 // import { TruckMapPage } from '../pages/truck-map/truck-map';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -63,6 +65,7 @@ import { ToastProvider } from '../providers/toast/toast';
     FoodRegistPage,
     TruckModifyPage,
     ReviewWritePage,
+    FoodModifyPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -96,6 +99,7 @@ import { ToastProvider } from '../providers/toast/toast';
     FoodRegistPage,
     TruckModifyPage,
     ReviewWritePage,
+    FoodModifyPage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -104,6 +108,7 @@ import { ToastProvider } from '../providers/toast/toast';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    DatePipe,
     AuthenticationProvider,
     LocalstorageProvider,
     MemberProvider,

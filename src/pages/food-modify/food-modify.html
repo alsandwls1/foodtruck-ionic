@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name='arrow-back'></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>메뉴 수정</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form (ngSubmit)="submit()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>아이디</ion-label>
+        <ion-input type="text" [(ngModel)]="model.fid" value="{{beforeFood.fid}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>이름</ion-label>
+        <ion-input type="text" [(ngModel)]="model.fname" value="{{beforeFood.fname}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>가격</ion-label>
+        <ion-input type="text" [(ngModel)]="model.fprice" value="{{beforeFood.fprice}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>설명</ion-label>
+        <ion-input type="text" [(ngModel)]="model.fdescription" value="{{beforeFood.fdescription}}" [ngModelOptions]="{standalone: true}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>이미지</ion-label>
+        <ion-input type="file" (change)="selectFile($event)" ></ion-input>
+      </ion-item>
+      <div *ngIf="!url">
+        <img src="http://localhost:8080/image/{{beforeFood.fimage}}" alt="" width="120px" height="120px">
+      </div>
+      <div>
+        <img src="{{url}}" alt="" width="120px" height="120px">
+      </div>
+      <div padding>
+        <button type="submit" ion-button color="primary" block>Save</button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

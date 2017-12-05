@@ -38,8 +38,12 @@
       <!-- <ion-card-title>
         NO. {{truck.tid}} | {{truck.tname}}
       </ion-card-title> -->
+      <p style="white-space:pre-wrap;"> 한마디 : {{truck.tcomment}}</p>
       <p> 주소 : {{truck.taddress}}</p>
-      <p> 영업시간 : {{truck.topen}} ~ {{truck.tclose}} </p>
+      <p> 영업시간 : {{truck.topen }} ~ {{truck.tclose}} </p>
+      <p> 영업시간 : {{fixedTimezone | date: 'shortTime'}}</p>
+      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="truck.topen" disabled></ion-datetime>
+      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="truck.tclose" disabled></ion-datetime>
       <p> 평점 : {{truck.tavg}}</p>
     </ion-card-content>
     <ion-row text-center no-padding *ngIf="truckOwner">
@@ -80,13 +84,14 @@
           </ion-thumbnail>
           <h2>이름 : {{f.fname}}</h2>
           <h2>가격 : {{f.fprice}}</h2>
+          <h2>설명 : {{f.fdescription}}</h2>
         </ion-item>
         <ion-item-options *ngIf="truckOwner">
-          <button ion-button color="secondary" icon-start>
+          <button ion-button color="secondary" icon-start (click)="modifyMenu(f)">
             <ion-icon ios="ios-construct" md="md-construct"></ion-icon>
             Update
           </button>
-          <button ion-button color="danger" icon-start>
+          <button ion-button color="danger" icon-start (click)="deleteMenu()">
             <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
             Delete
           </button>
@@ -115,10 +120,9 @@
             <ion-thumbnail item-start *ngIf="r.rimage">
               <img src="http://localhost:8080/image/{{r.rimage}}">
             </ion-thumbnail>
-            <h3>작성자: {{r.rmember}}</h3>
-            <h3>작성일 : {{ r.rdate}}</h3>
-            <h3>내용 : {{r.rcomment}} </h3>
-            <h3>점수: {{r.rscore}}</h3>
+            <p>작성자: {{r.rmember}}</p>
+            <p>점수: {{r.rscore}} | 작성일 : {{ r.rdate}}</p>
+            <h3 style="white-space:pre-wrap;"> {{r.rcomment}} </h3>
           </ion-item>
         </ion-col>
       </ion-row>
