@@ -1,0 +1,18 @@
+page-image {
+  ion-content.content.content-md {
+    background-color: #000;
+  }
+  toolbar-background {
+    background-color: #000;
+  }
+
+  img {
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top:50%;
+    transform:translateY(-50%);
+  }
+
+}

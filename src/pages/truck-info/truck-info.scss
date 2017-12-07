@@ -1,4 +1,48 @@
-page-truck-info {}
+page-truck-info {
+  .grid {
+    padding: 0;
+    font-size: 0.9em;
+  }
+
+  .card-md p {
+    font-size: 1em;
+    // padding: initial;
+    white-space: pre-wrap;
+  }
+
+  .card-content-md {
+    padding: 13px 10px;
+    font-size: 1em;
+  }
+  //rating
+  ul {
+    padding: 0;
+    margin: 0;
+
+    &.rating li {
+      padding: 0px 1px !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 1.4em;
+      }
+    }
+  }
+
+  //리뷰
+  .reviewEmail {
+    font-size:1.5rem;
+    color: black;
+    font-weight: 500;
+  }
+
+  //이미지버튼
+  .bntImage {
+    padding: 0;
+  }
+
+} //End page-truck-info
 
 .iconHeart {
   font-size: 2.2em;
@@ -7,7 +51,7 @@ page-truck-info {}
 }
 
 .bottomToast {
-  div{
+  div {
     border-radius: 15px;
   }
   right: 0;
@@ -19,6 +63,7 @@ page-truck-info {}
   text-align: center;
   font-size: 1.5em;
 }
+
 ion-toast {
   bottom: 30px;
 }

@@ -11,13 +11,21 @@
   <ion-card *ngFor="let truck of trucks">
     <img src="http://localhost:8080/image/{{truck.timage}}" />
     <ion-card-content>
-      <ion-card-title>
-        {{truck.tname}}
-      </ion-card-title>
-      <p>별점: {{truck.tavg}}</p>
       <p>
-        {{truck.taddress}}
+        <rating [(ngModel)]="truck.tavg"
+                readOnly="true"
+                max="5"
+                emptyStarIconName="star-outline"
+                halfStarIconName="star-half"
+                starIconName="star"
+                nullable="false"
+                [ngModelOptions]="{standalone: true}"
+                small
+                >
+        </rating>
       </p>
+      <p class="truckName">{{truck.tname}}</p>
+      <p class="truckAddress">{{truck.taddress}}</p>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col text-center>

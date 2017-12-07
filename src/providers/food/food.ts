@@ -48,20 +48,20 @@ export class FoodProvider {
   }
 
   //푸드 수정 - 이미지 X
-  modifyFood(f: any):Observable<any> {
+  modifyFood(f: any): Observable<any> {
     const url = `${this.foodUrl}/update2`;
     let headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
     let food = { 'fid': f.fid, 'fname': f.fname, 'fprice': f.fprice, 'fdescription': f.fdescription };
 
-    return this.http.post(url, JSON.stringify(food), {headers:headers})
+    return this.http.post(url, JSON.stringify(food), { headers: headers })
       .map(res => {
-        this.subject.next({modify: 'ok'});
+        this.subject.next({ fresult: 'ok' });
         return res.text();
       });
   }
 
   //푸드 수정 - 이미지 o
-  modifyFoodIncludeImg(f: any):Observable<any>{
+  modifyFoodIncludeImg(f: any): Observable<any> {
     const url = `${this.foodUrl}/update`;
     let formdata: FormData = new FormData();
     console.log(f.fid)
@@ -74,9 +74,17 @@ export class FoodProvider {
 
     return this.http.post(url, formdata)
       .map(res => {
-        this.subject.next({modify: 'ok'});
+        this.subject.next({ fresult: 'ok' });
         return res.text();
       });
+  }
+
+  //푸드 삭제
+  deleteMenu(fid: string): Observable<any> {
+    const url = `${this.foodUrl}/delete/${fid}`;
+    return this.http.delete(url).map(() => {
+      this.subject.next({ fresult: 'ok' });
+    });
   }
 
 

@@ -4,7 +4,10 @@ import { HttpModule } from '@angular/http';
 import { DatePipe } from '@angular/common';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
+//pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -19,23 +22,14 @@ import { FoodRegistPage } from '../pages/food-regist/food-regist';
 import { TruckModifyPage } from '../pages/truck-modify/truck-modify';
 import { ReviewWritePage } from '../pages/review-write/review-write';
 import { FoodModifyPage } from '../pages/food-modify/food-modify';
+import { ImagePage } from '../pages/image/image';
 // import { TruckMapPage } from '../pages/truck-map/truck-map';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-// import { AgmCoreModule } from '@agm/core';
-// import { HTTP } from '@ionic-native/http';
+// ionic2-rating: $ npm install --save ionic2-rating
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 
 //Page Module
-// import { CanivalPageModule } from '../pages/canival/canival.module';
-// import { JoinPageModule } from '../pages/join/join.module';
-// import { SupportPageModule } from '../pages/support/support.module';
-// import { LoginPageModule } from '../pages/login/login.module';
-// import { TruckInfoPageModule } from '../pages/truck-info/truck-info.module';
-// import { TruckListPageModule } from '../pages/truck-list/truck-list.module';
-// import { TruckRegistPageModule } from '../pages/truck-regist/truck-regist.module';
-// import { CanivalInfoPageModule } from '../pages/canival-info/canival-info.module';
 import { TruckMapPageModule } from '../pages/truck-map/truck-map.module';
 import { MemberInfoPageModule } from '../pages/member-info/member-info.module';
 
@@ -66,6 +60,7 @@ import { ToastProvider } from '../providers/toast/toast';
     TruckModifyPage,
     ReviewWritePage,
     FoodModifyPage,
+    ImagePage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,
@@ -79,6 +74,8 @@ import { ToastProvider } from '../providers/toast/toast';
     //   libraries: ["places"],
     // }),
     HttpModule,
+    //rating
+    Ionic2RatingModule,
 
     //Page Module
     TruckMapPageModule,
@@ -100,6 +97,7 @@ import { ToastProvider } from '../providers/toast/toast';
     TruckModifyPage,
     ReviewWritePage,
     FoodModifyPage,
+    ImagePage,
     // TruckMapPage,
     // ReviewsPage,
     // FavoritesPage,

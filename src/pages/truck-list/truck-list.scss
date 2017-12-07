@@ -1,3 +1,28 @@
 page-truck-list {
+  //rating
+  ul {
+    padding: 0;
+    margin: 0;
+    height: 0.9rem;
 
+    &.rating li {
+      padding: 0px 0px !important;
+      background: none;
+      color: #ffb400;
+
+      ion-icon {
+        font-size: 1em;
+      }
+    }
+  }
+
+  //truck Name
+  .truckName {
+    font-size: 1.7rem;
+    font-weight: 500;
+  }
+  .truckAddress {
+    font-size: 1.2rem;
+    color: #5b5757;
+  }
 }

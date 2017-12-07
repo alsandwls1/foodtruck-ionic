@@ -5,6 +5,7 @@ import { FoodRegistPage } from '../../pages/food-regist/food-regist';
 import { ReviewWritePage } from '../../pages/review-write/review-write';
 import { TruckModifyPage } from '../../pages/truck-modify/truck-modify';
 import { FoodModifyPage } from '../../pages/food-modify/food-modify';
+import { ImagePage } from '../../pages/image/image';
 //providers
 import { FoodProvider } from '../../providers/food/food';
 import { ReviewProvider } from '../../providers/review/review';
@@ -48,7 +49,8 @@ export class TruckInfoPage {
 
   //segment의 default값 지정
   pet: string = 'menus';
-  fixedTimezone = '2015-06-15T09:03:01+0900';
+
+  // fixedTimezone = '2015-06-15T09:03:01+0900';
 
   constructor(
     public navCtrl: NavController,
@@ -101,15 +103,14 @@ export class TruckInfoPage {
       }
     });
 
-    //푸드수정되었을 때, 비동기 처리
+    //푸드수정되었을 때, 삭제되었을때, 비동기 처리
     this.foodProvider.getObservable().subscribe(res => {
-      console.log(res.modify);
-      if(res.modify === 'ok') {
+      console.log(res.fresult);
+      if(res.fresult === 'ok') {
         this.foodProvider.getAllfoods(this.truck.tid).subscribe(res => {
           this.foods = res.json();
         });
       }
-
     });
 
     //트럭리뷰 불러오기
@@ -126,11 +127,15 @@ export class TruckInfoPage {
     this.reviewProvider.getObservable().subscribe(res => {
       console.log(res.review)
       if (res.review == 'insert') {
-        this.reviewProvider.getTruckReview(this.truck.tid).subscribe(res => {
+        this.reviewProvider.getTruckReview(this.truck.tid).subscribe(result => {
           this.reviewError = null;
           // console.log(res.json());
-          this.reviews = res.json();
+          this.reviews = result.json();
         });
+        //트럭의 평점도 refresh되어야해서 트럭정보를 다시 불러온다.
+        this.truckProvider.getTruckInfo(this.truck.tid).subscribe(result => {
+          this.truck = JSON.parse(result);
+        })
       }
     });
 
@@ -166,6 +171,14 @@ export class TruckInfoPage {
     profileModal.present();
   }
 
+  //음식 삭제
+  deleteMenu(fid: string){
+    console.log('fid = '+fid)
+    this.foodProvider.deleteMenu(fid).subscribe(() => {
+      this.toastProvider.presentToast('삭제되었습니다.', 'bottom', 'bottomToast');
+    });
+  }
+
   //리뷰등록모달
   presentReviewModal() {
     let profileModal = this.modalCtrl
@@ -176,9 +189,16 @@ export class TruckInfoPage {
     profileModal.present();
   }
 
+
   //트럭정보 수정 모달
   presentTruckModal() {
     let profileModal = this.modalCtrl.create(TruckModifyPage, { truck: this.truck });
+    profileModal.present();
+  }
+
+  //이미지 클릭하면 크게 보이는 모달
+  presentImageModal(image) {
+    let profileModal = this.modalCtrl.create(ImagePage, { image: image });
     profileModal.present();
   }
 

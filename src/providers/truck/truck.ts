@@ -22,6 +22,11 @@ export class TruckProvider {
     return this.http.get(this.truckUrl);
   }
 
+  getTruckInfo(tid:string): Observable<any> {
+    let url = `${this.truckUrl}/${tid}`;
+    return this.http.get(url).map(res=>res.text());
+  }
+
   postTruck(truck) {
     // postTruck(truck): Observable<any> { //인홍이가 한 건데 에러가 뜬다....ㅠ
     const url = this.truckUrl + `/post`;
@@ -65,7 +70,7 @@ export class TruckProvider {
       });
   }
 
-  //트럭수정 - 이미지 수정 안 할때.
+  //트럭수정 - 이미지 X
   modifyTruck(truck: any): Observable<any> {
     const url = `${this.truckUrl}/post2`;
     let formdata: FormData = new FormData();
@@ -87,7 +92,7 @@ export class TruckProvider {
       });
   }
 
-  //트럭수정 - 이미지 수정 할때.
+  //트럭수정 - 이미지 O
   modifyTruckIncludeImgFile(truck: any): Observable<any> {
     const url = `${this.truckUrl}/post3`;
     let formdata: FormData = new FormData();

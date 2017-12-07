@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle >
+    <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>truck-map</ion-title>
@@ -18,6 +18,41 @@
 
 <ion-content padding>
   <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom">
-    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+    <agm-marker *ngFor="let truck of trucks; let i = index" [latitude]="truck.tlat" [longitude]="truck.tlng">
+      <agm-info-window [disableAutoPan]="true">
+        <!-- marker클릭시 띄울 panel -->
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <table (click)="goToTruckInfo(truck)">
+              <tr>
+                <td>
+                  <img class="imgMap" src="http://localhost:8080/image/{{truck.timage}}" alt="">
+                </td>
+                <td>
+                  <strong><span>{{truck.tname}}</span></strong><br>
+                  <span>{{truck.topen}} ~ {{truck.tclose}}</span><br>
+                  <span>
+                    <rating [(ngModel)]="truck.tavg"
+                            readOnly="true"
+                            max="5"
+                            emptyStarIconName="star-outline"
+                            halfStarIconName="star-half"
+                            starIconName="star"
+                            nullable="false"
+                            [ngModelOptions]="{standalone: true}"
+                            small
+                            >
+                    </rating>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="panel-body">
+          </div>
+        </div>
+        <!-- End panel -->
+      </agm-info-window>
+    </agm-marker>
   </agm-map>
 </ion-content>

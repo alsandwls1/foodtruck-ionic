@@ -31,14 +31,20 @@ export class HomePage {
     { "MemberInfoPage": MemberInfoPage },
     // { "ReviewsPage" :  ReviewsPage },
     // { "FavoritesPage" :  FavoritesPage },
-  ]
+  ];
 
+  myTabs: Array<{ title: string, tab: any, icon: string }>;
 
   constructor(public navCtrl: NavController) {
     //스토리지 확인해서 로그인 상태인지 확인
     if (window.localStorage.getItem('member')) {
       this.session = JSON.parse(window.localStorage.getItem('member'));
     }
+
+    this.myTabs = [
+      {title: '나의리뷰' , tab:ReviewsPage, icon:'ios-create-outline'},
+      {title: '즐겨찾기' , tab:FavoritesPage, icon:'ios-happy-outline'},
+    ]
   }
 
   goToPages(page: string) {
@@ -50,10 +56,9 @@ export class HomePage {
     }
   }
 
-  goToFavorite() {
-    this.navCtrl.push(MemberInfoPage, {
-      tab2: FavoritesPage
-    });
+
+  goToMyPages(myTab: any) {
+    this.navCtrl.setRoot(MemberInfoPage, {tab: myTab.tab});
   }
 
 }

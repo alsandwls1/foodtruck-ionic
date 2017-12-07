@@ -10,7 +10,7 @@
     <button ion-button menuToggle *ngIf="!modal">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title small>{{truck.tname}},{{truck.tid}}</ion-title>
+    <ion-title small>{{truck.tname}}</ion-title>
 
     <!-- 나의 즐겨찾기로 들오올때만 보여줌. -->
     <ion-buttons left *ngIf="modal">
@@ -38,13 +38,49 @@
       <!-- <ion-card-title>
         NO. {{truck.tid}} | {{truck.tname}}
       </ion-card-title> -->
-      <p style="white-space:pre-wrap;"> 한마디 : {{truck.tcomment}}</p>
-      <p> 주소 : {{truck.taddress}}</p>
-      <p> 영업시간 : {{truck.topen }} ~ {{truck.tclose}} </p>
-      <p> 영업시간 : {{fixedTimezone | date: 'shortTime'}}</p>
-      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="truck.topen" disabled></ion-datetime>
-      <ion-datetime displayFormat="hh:mm A" [(ngModel)]="truck.tclose" disabled></ion-datetime>
-      <p> 평점 : {{truck.tavg}}</p>
+      <ion-grid>
+        <ion-row align-items-start>
+          <ion-col col-3>
+            주소
+          </ion-col>
+          <ion-col col-9>
+            <p>{{truck.taddress}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-start>
+          <ion-col col-3>
+            영업시간
+          </ion-col>
+          <ion-col col-9>
+            <p>{{truck.topen }} ~ {{truck.tclose}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-start>
+          <ion-col col-3>
+            소개글
+          </ion-col>
+          <ion-col col-9>
+            <p>{{truck.tcomment}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row align-items-start>
+          <ion-col col-3>
+            평점
+          </ion-col>
+          <ion-col col-9>
+            <rating [(ngModel)]="truck.tavg"
+                    readOnly="true"
+                    max="5"
+                    emptyStarIconName="star-outline"
+                    halfStarIconName="star-half"
+                    starIconName="star"
+                    nullable="false"
+                    [ngModelOptions]="{standalone: true}"
+                    >
+            </rating>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
     <ion-row text-center no-padding *ngIf="truckOwner">
       <ion-col no-padding style="background: rgba(224, 228, 228, 0.45)">
@@ -80,7 +116,9 @@
       <ion-item-sliding  *ngFor="let f of foods">
         <ion-item>
           <ion-thumbnail item-start>
-            <img src="http://localhost:8080/image/{{f.fimage}}">
+            <button class="bntImage" (click)="presentImageModal(f.fimage)">
+              <img src="http://localhost:8080/image/{{f.fimage}}">
+            </button>
           </ion-thumbnail>
           <h2>이름 : {{f.fname}}</h2>
           <h2>가격 : {{f.fprice}}</h2>
@@ -91,7 +129,7 @@
             <ion-icon ios="ios-construct" md="md-construct"></ion-icon>
             Update
           </button>
-          <button ion-button color="danger" icon-start (click)="deleteMenu()">
+          <button ion-button color="danger" icon-start (click)="deleteMenu(f.fid)">
             <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
             Delete
           </button>
@@ -118,11 +156,24 @@
         <ion-col>
           <ion-item *ngFor="let r of reviews">
             <ion-thumbnail item-start *ngIf="r.rimage">
-              <img src="http://localhost:8080/image/{{r.rimage}}">
+              <button class="bntImage" (click)="presentImageModal(r.rimage)">
+                <img src="http://localhost:8080/image/{{r.rimage}}">
+              </button>
             </ion-thumbnail>
-            <p>작성자: {{r.rmember}}</p>
-            <p>점수: {{r.rscore}} | 작성일 : {{ r.rdate}}</p>
-            <h3 style="white-space:pre-wrap;"> {{r.rcomment}} </h3>
+            <p><span class="reviewEmail">{{ r.rmember}}</span> | <span style="font-size:0.7em">{{ r.rdate}}</span></p>
+            <p>
+              <rating [(ngModel)]="r.rscore"
+                      readOnly="true"
+                      max="5"
+                      emptyStarIconName="star-outline"
+                      halfStarIconName="star-half"
+                      starIconName="star"
+                      nullable="false"
+                      [ngModelOptions]="{standalone: true}"
+                      >
+              </rating>
+            </p>
+            <h3 style="white-space:pre;"> {{r.rcomment}} </h3>
           </ion-item>
         </ion-col>
       </ion-row>

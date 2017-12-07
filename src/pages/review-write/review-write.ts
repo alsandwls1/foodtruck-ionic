@@ -30,6 +30,7 @@ export class ReviewWritePage {
   ) {
     this.review.rtruck = navParams.get('tid');
     this.review.rmember = navParams.get('email');
+    this.review.rscore = 3; //별점 기본값 정해줌
     console.log(this.review.rtruck +', '+ this.review.rmember)
     // if (window.localStorage.getItem('member')) {
     //   // this.member = JSON.parse(window.localStorage.getItem('member'));
@@ -84,5 +85,8 @@ export class ReviewWritePage {
     });
   }
 
+  onModelChange(event) {
+    console.log(event);
+  }
 
 }
