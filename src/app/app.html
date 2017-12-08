@@ -44,10 +44,10 @@
   </ion-content>
 
   <ion-footer style="background:rgb(244, 240, 240)">
-    <ion-list *ngIf="member" style="margin: 0.5em 0.5em 0.5em 0.5em; text-align:center">
+    <ion-list style="margin: 0.5em 0.5em 0.5em 0.5em; text-align:center">
       <p style="color: rgb(152, 149, 148); font-size: 0.6em; margin-bottom:0">Copyright Foodtruck. All Rights Reserved.</p>
       <p style="color: rgb(152, 149, 148); font-size: 0.6em; margin:0 0 0 0">©FoodTruck</p>
-      <button menuClose ion-button round small clear style="color: rgb(128, 127, 126); background: rgb(214, 209, 209)"  (click)="goToLogout()">
+      <button menuClose ion-button round small clear style="color: rgb(128, 127, 126); background: rgb(214, 209, 209)" *ngIf="member" (click)="goToLogout()">
         로그아웃
       </button>
     </ion-list>

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { TruckInfoPage } from '../../../pages/truck-info/truck-info';
 //providers
 import { ReviewProvider } from '../../../providers/review/review';
+import { TruckProvider } from '../../../providers/truck/truck';
 
 /**
  * Generated class for the ReviewsPage page.
@@ -27,6 +28,7 @@ export class ReviewsPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public reviewProvider: ReviewProvider,
+    public truckProvider: TruckProvider,
 
   ) {
     this.member = JSON.parse(window.localStorage.getItem('member'));
@@ -53,12 +55,24 @@ export class ReviewsPage {
   }
 
   //TODO:modal로 띄움
-  goToTruckInfo(f) {
+  goToTruckInfo(tid:string) {
+    var truck;
+    //tid으로 트럭정보 찾기
+    truck = this.getTruckInfo(tid);
+
+    console.log(truck);
     let profileModal = this.modalCtrl.create(TruckInfoPage, {
-      truck: f,
+      truck: truck,
       modal: 'yes'
     });
     profileModal.present();
+  }
+
+  getTruckInfo(tid: string) {
+    this.truckProvider.getTruckInfo(tid).subscribe(result => {
+      console.log(result)
+      return JSON.parse(result);
+    });
   }
 
 }
